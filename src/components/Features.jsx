@@ -1,41 +1,50 @@
 import { useRef, useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faWater,
+  faFire,
+  faSeedling,
+  faSnowflake,
+  faShower,
+  faUmbrellaBeach,
+} from '@fortawesome/free-solid-svg-icons'
 import './Features.css'
 
 const FEATURES = [
   {
-    icon: '🏊',
-    title: 'Piscina Privativa',
-    desc: 'Piscina exclusiva com deck de madeira e espreguiçadeiras para relaxar ao sol do Nordeste.',
-    color: '#3BBFDB',
+    icon: faWater,
+    title: 'Piscina Particular',
+    desc: 'Piscina exclusiva com deck seguro e que garante comodidade e conforto para todos os nosso hóspedes.',
+    color: '#3b46db',
   },
   {
-    icon: '🍖',
+    icon: faFire,
     title: 'Área Gourmet Completa',
     desc: 'Cozinha externa com bancada em granito, cooktop embutido, pia e suporte para churrasqueira.',
-    color: '#F5C200',
+    color: '#f50000',
   },
   {
-    icon: '🌿',
-    title: 'Gramado Privativo',
-    desc: 'Amplo jardim com grama sintética de alta qualidade — perfeito para crianças brincarem.',
+    icon: faSeedling,
+    title: 'Gramado Sintético',
+    desc: 'Amplo espaço com grama sintética de alta qualidade — perfeito para crianças brincarem.',
     color: '#3CAE4A',
   },
   {
-    icon: '❄️',
-    title: 'Ar-Condicionado',
-    desc: 'Ambiente climatizado para seu conforto, mesmo nos dias mais quentes do verão.',
-    color: '#60C4D8',
+    icon: faSnowflake,
+    title: 'Ar-Condicionados',
+    desc: 'Ambientes climatizados para seu conforto, mesmo nos dias mais quentes do verão.',
+    color: '#237586',
   },
   {
-    icon: '🚿',
+    icon: faShower,
     title: 'Banheiro de Apoio',
     desc: 'Banheiro externo para uso direto da piscina, mantendo sua casa sempre limpa.',
     color: '#A0C4FF',
   },
   {
-    icon: '🌴',
+    icon: faUmbrellaBeach,
     title: 'Ambiente Tropical',
-    desc: 'Coqueiros, céu azul e brisa do mar — a Figueira em Arraial do Cabo é paraíso puro.',
+    desc: 'Espriguiçadeiras confortáveis para relaxar e sentir — a Figueira em Arraial do Cabo é paraíso puro.',
     color: '#F5C200',
   },
 ]
@@ -59,7 +68,9 @@ function FeatureCard({ feature, index }) {
       className={`feature-card ${visible ? 'feature-card--visible' : ''}`}
       style={{ '--delay': `${index * 0.1}s`, '--accent': feature.color }}
     >
-      <div className="feature-card__icon">{feature.icon}</div>
+      <div className="feature-card__icon">
+        <FontAwesomeIcon icon={feature.icon} />
+      </div>
       <h3 className="feature-card__title">{feature.title}</h3>
       <p className="feature-card__desc">{feature.desc}</p>
       <div className="feature-card__bar" />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './Navbar.css'
+import casaLogo from '../assets/casa_logo.png'  // ← importe o PNG
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -21,10 +22,15 @@ export default function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <a href="#hero" className="navbar__logo">
-        <span className="navbar__logo-icon">🌊</span>
-        <span className="navbar__logo-text">Casa<strong>Amarela</strong></span>
+        <img
+          src={casaLogo}
+          alt="Casa Amarela"
+          className="navbar__logo-img"
+        />
+        <span className="navbar__logo-text">Casa<strong> Amarela</strong></span>
       </a>
 
+      {/* restante igual... */}
       <ul className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
         {navLinks.map(link => (
           <li key={link.label}>
@@ -45,9 +51,7 @@ export default function Navbar() {
         onClick={() => setMenuOpen(!menuOpen)}
         aria-label="Menu"
       >
-        <span />
-        <span />
-        <span />
+        <span /><span /><span />
       </button>
     </nav>
   )

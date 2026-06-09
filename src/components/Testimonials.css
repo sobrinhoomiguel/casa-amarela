@@ -137,8 +137,8 @@
   margin-left: auto;
 }
 
+/* Avatar ajustado para FA icon */
 .review-card__avatar {
-  font-size: 2rem;
   width: 44px;
   height: 44px;
   display: flex;
@@ -146,6 +146,9 @@
   justify-content: center;
   background: var(--creme);
   border-radius: 50%;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  color: var(--terra);
 }
 
 .review-card__name {

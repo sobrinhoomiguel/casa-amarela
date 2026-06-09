@@ -11,6 +11,14 @@
   transition: all 0.4s var(--ease-out-expo);
 }
 
+.navbar__logo-img {
+  height: 58px;
+  width: auto;
+  object-fit: contain;
+  /* O fundo preto do PNG some com mix-blend-mode */
+  mix-blend-mode: screen;
+}
+
 .navbar--scrolled {
   background: rgba(26, 20, 16, 0.95);
   backdrop-filter: blur(20px);
@@ -23,7 +31,7 @@
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-body);
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   color: var(--branco);
   letter-spacing: 0.02em;
 }
@@ -44,7 +52,7 @@
 }
 
 .navbar__links a {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 400;
   letter-spacing: 0.06em;
   text-transform: uppercase;

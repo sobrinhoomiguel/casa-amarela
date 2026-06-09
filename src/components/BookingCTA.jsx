@@ -38,7 +38,7 @@ export default function BookingCTA() {
 
           <div className="cta__buttons">
             <a
-              href="https://wa.me/5521999999999?text=Olá!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!"
+              href="https://wa.me/5521982338037?text=Olá!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!"
               target="_blank"
               rel="noopener noreferrer"
               className="cta__btn cta__btn--whatsapp"
@@ -63,7 +63,7 @@ export default function BookingCTA() {
           </div>
 
           <div className="cta__perks">
-            {['✓ Sem taxa de reserva', '✓ Atendimento rápido', '✓ Pagamento facilitado'].map(p => (
+            {['✓ Reserva imediata', '✓ Atendimento rápido', '✓ Pagamento facilitado'].map(p => (
               <span key={p} className="cta__perk">{p}</span>
             ))}
           </div>
@@ -74,8 +74,8 @@ export default function BookingCTA() {
       <footer className="footer">
         <div className="footer__inner">
           <div className="footer__brand">
-            <span className="footer__logo">🌊 Casa<strong>Amarela</strong></span>
-            <p>Arraial do Cabo · Figueira · RJ</p>
+            <span className="footer__logo">🏠Casa<strong> Amarela</strong></span>
+            <p>Figueira · Arraial do Cabo · RJ</p>
           </div>
           <div className="footer__links">
             <a href="#sobre">A Casa</a>
@@ -84,7 +84,7 @@ export default function BookingCTA() {
             <a href="https://www.instagram.com/cs.amarela/" target="_blank" rel="noopener noreferrer">@cs.amarela</a>
           </div>
           <div className="footer__bottom">
-            <span>© 2025 Casa Amarela · Todos os direitos reservados</span>
+            <span>Casa Amarela · 2026</span>
           </div>
         </div>
       </footer>

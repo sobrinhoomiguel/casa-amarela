@@ -1,4 +1,11 @@
 import { useRef, useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faStar,
+  faUser,
+  faUsers,
+  faUserTie,
+} from '@fortawesome/free-solid-svg-icons'
 import './Testimonials.css'
 
 const REVIEWS = [
@@ -8,7 +15,7 @@ const REVIEWS = [
     stars: 5,
     text: 'Que casa incrível! A piscina é perfeita, a área gourmet super completa. Fomos com a família e todo mundo amou. Com certeza voltaremos!',
     date: 'Fevereiro 2025',
-    avatar: '👩',
+    faIcon: faUser,
   },
   {
     name: 'Rafael e Ana',
@@ -16,7 +23,7 @@ const REVIEWS = [
     stars: 5,
     text: 'Estrutura impecável, limpa e muito bem cuidada. A proprietária foi super atenciosa. Arraial do Cabo é um paraíso e essa casa combina 100%!',
     date: 'Janeiro 2025',
-    avatar: '👫',
+    faIcon: faUsers,
   },
   {
     name: 'Carla M.',
@@ -24,7 +31,7 @@ const REVIEWS = [
     stars: 5,
     text: 'Perfeita para quem quer relaxar. A piscina é privativa e a casa bem espaçosa. Gramado lindo, muito conforto. Super recomendo!',
     date: 'Dezembro 2024',
-    avatar: '👩‍🦱',
+    faIcon: faUserTie,
   },
 ]
 
@@ -32,7 +39,9 @@ function Stars({ count }) {
   return (
     <div className="stars">
       {Array.from({ length: count }).map((_, i) => (
-        <span key={i} className="star">★</span>
+        <span key={i} className="star">
+          <FontAwesomeIcon icon={faStar} />
+        </span>
       ))}
     </div>
   )
@@ -86,7 +95,9 @@ export default function Testimonials() {
               style={{ '--delay': `${i * 0.15}s` }}
             >
               <div className="review-card__header">
-                <span className="review-card__avatar">{review.avatar}</span>
+                <span className="review-card__avatar">
+                  <FontAwesomeIcon icon={review.faIcon} />
+                </span>
                 <div>
                   <div className="review-card__name">{review.name}</div>
                   <div className="review-card__city">{review.city}</div>
