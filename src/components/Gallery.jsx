@@ -1,20 +1,19 @@
 import { useRef, useEffect, useState } from 'react'
 import './Gallery.css'
 
-// troque src pelas suas fotos reais — todas landscape (deitadas)
 const GALLERY_ITEMS = [
-  { label: 'Praia ao entardecer',           span: 'tall',   src: '/src/assets/praia_img2.jpeg',     bg: 'linear-gradient(135deg, #F5C200 0%, #D4A800 100%)' },
-  { label: 'Praia de dia',         span: 'tall',   src: '/src/assets/praia_img.jpeg',      bg: 'linear-gradient(135deg, #3BBFDB 0%, #1A6FA3 100%)' },
-  { label: 'Área externa',    span: 'normal', src: 'src/assets/quintal_img.png',      bg: 'linear-gradient(135deg, #8B5E3C 0%, #4a2f1a 100%)' },
-  { label: 'Sala de estar',         span: 'normal', src: 'src/assets/sala_img2.png',     bg: 'linear-gradient(135deg, #3CAE4A 0%, #1f6a2b 100%)' },
-  { label: 'Espreguiçadeiras', span: 'wide',   src: '/src/assets/quintal_img2.png', bg: 'linear-gradient(135deg, #60C4D8 0%, #3BBFDB 100%)' },
-  { label: 'Deck da Piscina', span: 'normal', src: 'src/assets/piscina_img2.png', bg: 'linear-gradient(135deg, #E8D9B5 0%, #c4b48a 100%)' },
+  { label: 'Praia ao entardecer',  span: 'tall',   src: '/src/assets/praia_img2.jpeg',   bg: 'linear-gradient(135deg, #F5C200 0%, #D4A800 100%)' },
+  { label: 'Praia de dia',         span: 'tall',   src: '/src/assets/praia_img.jpeg',    bg: 'linear-gradient(135deg, #3BBFDB 0%, #1A6FA3 100%)' },
+  { label: 'Área externa',         span: 'normal', src: 'src/assets/quintal_img.png',    bg: 'linear-gradient(135deg, #8B5E3C 0%, #4a2f1a 100%)' },
+  { label: 'Sala de estar',        span: 'normal', src: 'src/assets/sala_img2.png',      bg: 'linear-gradient(135deg, #3CAE4A 0%, #1f6a2b 100%)' },
+  { label: 'Espreguiçadeiras',     span: 'wide',   src: '/src/assets/quintal_img2.png',  bg: 'linear-gradient(135deg, #60C4D8 0%, #3BBFDB 100%)' },
+  { label: 'Deck da Piscina',      span: 'normal', src: 'src/assets/piscina_img2.png',   bg: 'linear-gradient(135deg, #E8D9B5 0%, #c4b48a 100%)' },
 ]
 
 export default function Gallery() {
-  const [lightbox, setLightbox]     = useState(null)
+  const [lightbox, setLightbox]       = useState(null)
   const [lightboxIdx, setLightboxIdx] = useState(null)
-  const [visible, setVisible]       = useState(false)
+  const [visible, setVisible]         = useState(false)
   const sectionRef = useRef(null)
 
   useEffect(() => {
@@ -26,24 +25,29 @@ export default function Gallery() {
     return () => observer.disconnect()
   }, [])
 
+  // Funções de controle do Lightbox atualizadas para evitar stale state
+  const openLightbox  = (item, idx) => { setLightbox(item); setLightboxIdx(idx) }
+  const closeLightbox = () => { setLightbox(null); setLightboxIdx(null) }
+  
+  const navLightbox = (dir) => {
+    setLightboxIdx((prevIdx) => {
+      if (prevIdx === null) return prevIdx
+      const next = (prevIdx + dir + GALLERY_ITEMS.length) % GALLERY_ITEMS.length
+      setLightbox(GALLERY_ITEMS[next])
+      return next
+    })
+  }
+
   useEffect(() => {
     const handleKey = (e) => {
-      if (!lightbox) return
-      if (e.key === 'Escape')      closeLightbox()
-      if (e.key === 'ArrowRight')  navLightbox(1)
-      if (e.key === 'ArrowLeft')   navLightbox(-1)
+      if (lightboxIdx === null) return // Lightbox fechado, não faz nada
+      if (e.key === 'Escape')     closeLightbox()
+      if (e.key === 'ArrowRight') navLightbox(1)
+      if (e.key === 'ArrowLeft')  navLightbox(-1)
     }
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
-  }, [lightbox, lightboxIdx])
-
-  const openLightbox = (item, idx) => { setLightbox(item); setLightboxIdx(idx) }
-  const closeLightbox = () => { setLightbox(null); setLightboxIdx(null) }
-  const navLightbox = (dir) => {
-    const next = (lightboxIdx + dir + GALLERY_ITEMS.length) % GALLERY_ITEMS.length
-    setLightbox(GALLERY_ITEMS[next])
-    setLightboxIdx(next)
-  }
+  }, [lightboxIdx]) // Dependência limpa focada apenas no índice ativo
 
   return (
     <section className="gallery" id="galeria" ref={sectionRef}>
@@ -78,7 +82,9 @@ export default function Gallery() {
                 ? <img src={item.src} alt={item.label} className="gallery__cell-img" />
                 : <div className="gallery__cell-bg" style={{ background: item.bg }} />
               }
-              <div className="gallery__cell-label">{item.label}</div>
+              <div className="gallery__cell-label">
+                {item.label}
+              </div>
             </button>
           ))}
         </div>
@@ -103,9 +109,19 @@ export default function Gallery() {
                 : <div className="gallery__item-bg" style={{ background: item.bg }} />
               }
               <div className="gallery__item-overlay">
-                <span className="gallery__item-label">{item.label}</span>
-                <svg className="gallery__item-zoom" width="18" height="18" viewBox="0 0 24 24"
-                  fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <span className="gallery__item-label">
+                  {item.label}
+                </span>
+                <svg
+                  className="gallery__item-zoom"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
                   <circle cx="11" cy="11" r="8" />
                   <path d="M21 21l-4.35-4.35M11 8v6M8 11h6" />
                 </svg>
@@ -114,19 +130,33 @@ export default function Gallery() {
           ))}
         </div>
 
+        {/* ── CTA (Tags <a> corrigidas aqui) ── */}
         <div className={`gallery__cta ${visible ? 'gallery__cta--visible' : ''}`}>
-          <a
+          <a 
+            href="https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gallery__ig-btn gallery__wa-btn"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+            Chamar no WhatsApp
+          </a>
+          
+          <a 
             href="https://www.instagram.com/cs.amarela/"
             target="_blank"
             rel="noopener noreferrer"
             className="gallery__ig-btn"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
             </svg>
             Ver mais no Instagram @cs.amarela
           </a>
         </div>
+
       </div>
 
       {/* ── LIGHTBOX ── */}
@@ -138,7 +168,10 @@ export default function Gallery() {
           aria-modal="true"
           aria-label={`Foto: ${lightbox.label}`}
         >
-          <div className="gallery__lightbox-inner" onClick={e => e.stopPropagation()}>
+          <div
+            className="gallery__lightbox-inner"
+            onClick={e => e.stopPropagation()}
+          >
             <div className="gallery__lightbox-media">
               {lightbox.src
                 ? <img src={lightbox.src} alt={lightbox.label} className="gallery__lightbox-img" />
@@ -149,19 +182,31 @@ export default function Gallery() {
               <span>{lightbox.label}</span>
               <span>Casa Amarela · Arraial do Cabo</span>
             </div>
-            <button className="gallery__lightbox-nav gallery__lightbox-nav--prev"
-              onClick={() => navLightbox(-1)} aria-label="Foto anterior">
+            <button
+              className="gallery__lightbox-nav gallery__lightbox-nav--prev"
+              onClick={() => navLightbox(-1)}
+              aria-label="Foto anterior"
+            >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M15 18l-6-6 6-6"/>
+                <path d="M15 18l-6-6 6-6" />
               </svg>
             </button>
-            <button className="gallery__lightbox-nav gallery__lightbox-nav--next"
-              onClick={() => navLightbox(1)} aria-label="Próxima foto">
+            <button
+              className="gallery__lightbox-nav gallery__lightbox-nav--next"
+              onClick={() => navLightbox(1)}
+              aria-label="Próxima foto"
+            >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M9 18l6-6-6-6"/>
+                <path d="M9 18l6-6-6-6" />
               </svg>
             </button>
-            <button className="gallery__lightbox-close" onClick={closeLightbox} aria-label="Fechar">✕</button>
+            <button
+              className="gallery__lightbox-close"
+              onClick={closeLightbox}
+              aria-label="Fechar"
+            >
+              ✕
+            </button>
             <div className="gallery__lightbox-counter">
               {lightboxIdx + 1} / {GALLERY_ITEMS.length}
             </div>

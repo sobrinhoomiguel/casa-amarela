@@ -15,13 +15,11 @@
   height: 58px;
   width: auto;
   object-fit: contain;
-  /* O fundo preto do PNG some com mix-blend-mode */
   mix-blend-mode: screen;
 }
 
 .navbar--scrolled {
   background: rgba(26, 20, 16, 0.95);
-  backdrop-filter: blur(20px);
   padding: 1rem 3rem;
   border-bottom: 1px solid rgba(245, 194, 0, 0.15);
 }
@@ -34,10 +32,6 @@
   font-size: 1.4rem;
   color: var(--branco);
   letter-spacing: 0.02em;
-}
-
-.navbar__logo-icon {
-  font-size: 1.4rem;
 }
 
 .navbar__logo-text strong {
@@ -72,13 +66,8 @@
   transition: width 0.3s var(--ease-out-expo);
 }
 
-.navbar__links a:hover {
-  color: var(--branco);
-}
-
-.navbar__links a:hover::after {
-  width: 100%;
-}
+.navbar__links a:hover { color: var(--branco); }
+.navbar__links a:hover::after { width: 100%; }
 
 .navbar__cta {
   background: var(--amarelo) !important;
@@ -90,9 +79,7 @@
   transition: all 0.3s var(--ease-spring) !important;
 }
 
-.navbar__cta::after {
-  display: none !important;
-}
+.navbar__cta::after { display: none !important; }
 
 .navbar__cta:hover {
   background: var(--branco) !important;
@@ -100,7 +87,7 @@
   box-shadow: 0 8px 24px rgba(245, 194, 0, 0.35) !important;
 }
 
-/* Burger */
+/* ── Burger ── */
 .navbar__burger {
   display: none;
   flex-direction: column;
@@ -109,6 +96,8 @@
   border: none;
   cursor: pointer;
   padding: 4px;
+  z-index: 101;
+  position: relative;
 }
 
 .navbar__burger span {
@@ -120,16 +109,13 @@
   transform-origin: center;
 }
 
-.navbar__burger--open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-.navbar__burger--open span:nth-child(2) {
-  opacity: 0;
-}
-.navbar__burger--open span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
+.navbar__burger--open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.navbar__burger--open span:nth-child(2) { opacity: 0; }
+.navbar__burger--open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
+/* ============================================================
+   MOBILE
+   ============================================================ */
 @media (max-width: 768px) {
   .navbar {
     padding: 1.25rem 1.5rem;
@@ -148,16 +134,15 @@
     top: 0;
     right: -100%;
     bottom: 0;
-    width: 75vw;
-    max-width: 320px;
+    width: 100vw;
     background: var(--escuro);
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    padding: 4rem 2.5rem;
+    align-items: center;
     gap: 2rem;
+    padding: 6rem 2.5rem 4rem;
     transition: right 0.4s var(--ease-out-expo);
-    border-left: 1px solid rgba(245, 194, 0, 0.15);
+    z-index: 100;
   }
 
   .navbar__links--open {
@@ -165,7 +150,8 @@
   }
 
   .navbar__links a {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    text-align: center;
   }
 
   .navbar__cta {

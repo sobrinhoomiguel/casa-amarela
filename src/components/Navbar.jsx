@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './Navbar.css'
-import casaLogo from '../assets/casa_logo.png'  // ← importe o PNG
+import casaLogo from '../assets/casa_logo.png'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -12,25 +12,25 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
   const navLinks = [
-    { label: 'A Casa', href: '#sobre' },
+    { label: 'A Casa',      href: '#sobre' },
     { label: 'Comodidades', href: '#comodidades' },
-    { label: 'Galeria', href: '#galeria' },
+    { label: 'Galeria',     href: '#galeria' },
     { label: 'Localização', href: '#localizacao' },
   ]
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <a href="#hero" className="navbar__logo">
-        <img
-          src={casaLogo}
-          alt="Casa Amarela"
-          className="navbar__logo-img"
-        />
+        <img src={casaLogo} alt="Casa Amarela" className="navbar__logo-img" />
         <span className="navbar__logo-text">Casa<strong> Amarela</strong></span>
       </a>
 
-      {/* restante igual... */}
       <ul className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
         {navLinks.map(link => (
           <li key={link.label}>

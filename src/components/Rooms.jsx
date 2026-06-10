@@ -127,7 +127,7 @@ function RoomModal({ room, onClose }) {
 
 const ROOMS = [
   {
-    id: 'varanda', label: '01', name: 'Varanda', tag: 'Área Interna',
+    id: 'varanda', label: '01', name: 'Varanda', tag: 'Área Externa',
     desc: 'Espaço de entrada aconchegante, perfeito para receber com estilo.',
     fullDesc: 'A varanda é o cartão de visitas da Casa Amarela. Espaçosa, ventilada e cheia de charme, é o lugar ideal para uma conversa ao entardecer ou para receber os amigos com classe.',
     highlights: ['Espaço amplo', 'Bem ventilada', 'Área de convivência'],
@@ -396,7 +396,11 @@ export default function Rooms() {
                 <FontAwesomeIcon icon={faWater} />
               </span>
               <p>Ficou com vontade?</p>
-              <a href="#reservar" className="rooms__end-btn">Reservar agora</a>
+              <a href="https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!" className="rooms__end-btn" target="_blank" 
+      rel="noopener noreferrer" 
+      className="rooms__end-btn">
+              Reservar agora
+              </a>
             </div>
           </div>
         </div>
