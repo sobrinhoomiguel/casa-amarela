@@ -55,9 +55,11 @@ function RoomModal({ room, onClose }) {
 
         <div className="room-modal__gallery">
           <div className="room-modal__main-img" style={getBg(images[activeImg])}>
-            <span className="room-modal__main-icon">
-              <FontAwesomeIcon icon={room.faIcon} />
-            </span>
+            {room.faIcon && (
+              <span className="room-modal__main-icon">
+                <FontAwesomeIcon icon={room.faIcon} />
+              </span>
+            )}
             {images.length > 1 && (
               <div className="room-modal__img-nav">
                 <button onClick={() => setActiveImg(p => Math.max(0, p - 1))} disabled={activeImg === 0}>
@@ -79,9 +81,11 @@ function RoomModal({ room, onClose }) {
                   style={getBg(img)}
                   onClick={() => setActiveImg(i)}
                 >
-                  <span className="room-modal__thumb-icon">
-                    <FontAwesomeIcon icon={room.faIcon} />
-                  </span>
+                  {room.faIcon && (
+                    <span className="room-modal__thumb-icon">
+                      <FontAwesomeIcon icon={room.faIcon} />
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
@@ -116,7 +120,12 @@ function RoomModal({ room, onClose }) {
             ))}
           </ul>
 
-          <a href="#reservar" className="room-modal__cta" onClick={onClose}>
+          <a 
+            href="https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="room-modal__cta"
+          >
             Reservar agora →
           </a>
         </div>
@@ -127,7 +136,7 @@ function RoomModal({ room, onClose }) {
 
 const ROOMS = [
   {
-    id: 'varanda', label: '01', name: 'Varanda', tag: 'Área Externa',
+    id: 'varanda', label: '01', name: 'Varanda', tag: 'Área Externa', faIcon: faDoorOpen,
     desc: 'Espaço de entrada aconchegante, perfeito para receber com estilo.',
     fullDesc: 'A varanda é o cartão de visitas da Casa Amarela. Espaçosa, ventilada e cheia de charme, é o lugar ideal para uma conversa ao entardecer ou para receber os amigos com classe.',
     highlights: ['Espaço amplo', 'Bem ventilada', 'Área de convivência'],
@@ -138,30 +147,30 @@ const ROOMS = [
     bg: varandaImg, images: [varandaImg],
   },
   {
-    id: 'sala', label: '02', name: 'Sala com TV', tag: 'Área Interna',
+    id: 'sala', label: '02', name: 'Sala com TV', tag: 'Área Interna', faIcon: faTv,
     desc: 'Sala climatizada com TV para os momentos de descanso e entretenimento.',
     fullDesc: 'Sala de estar ampla e confortável, perfeita para relaxar depois de um longo dia de praia. Com TV de tela grande e sofá confortável para toda a família.',
     highlights: ['Smart TV', 'Sofá confortável'],
     specs: [
-      { faIcon: faTv,        label: 'TV',           value: 'Smart TV' },
+      { faIcon: faTv,        label: 'TV',            value: 'Smart TV' },
       { faIcon: faGem,       label: 'Mobília',      value: 'Sofá completo' },
     ],
     bg: salaImg1, images: [salaImg1, salaImg2],
   },
   {
-    id: 'cozinha', label: '03', name: 'Cozinha Americana', tag: 'Área Interna',
+    id: 'cozinha', label: '03', name: 'Cozinha Americana', tag: 'Área Interna', faIcon: faUtensils,
     desc: 'Cozinha integrada e bem equipada, ideal para refeições em família.',
     fullDesc: 'Cozinha americana integrada à sala, com bancada em granito e todos os utensílios necessários para preparar desde um café da manhã especial até um jantar completo.',
     highlights: ['Totalmente equipada', 'Bancada em granito', 'Integrada à sala'],
     specs: [
-      { faIcon: faFire,     label: 'Fogão',    value: 'Fogão potente' },
+      { faIcon: faFire,      label: 'Fogão',     value: 'Fogão potente' },
       { faIcon: faSnowflake, label: 'Geladeira', value: 'Inclusa' },
-      { faIcon: faGem,      label: 'Bancada',   value: 'Granito' },
+      { faIcon: faGem,       label: 'Bancada',   value: 'Granito' },
     ],
     bg: cozinhaImg, images: [cozinhaImg, cozinhaImg2],
   },
   {
-    id: 'banheiro', label: '04', name: 'Banheiro', tag: 'Área Interna',
+    id: 'banheiro', label: '04', name: 'Banheiro', tag: 'Área Interna', faIcon: faShower,
     desc: 'Banheiro completo e bem acabado com chuveiro quente.',
     fullDesc: 'Banheiro social completo e bem acabado, com chuveiro quente, boa pressão e todo o conforto necessário para sua estadia.',
     highlights: ['Chuveiro quente', 'Boa pressão'],
@@ -172,9 +181,9 @@ const ROOMS = [
     bg: banheiroImg, images: [banheiroImg, banheiroImg2],
   },
   {
-    id: 'quarto1', label: '05', name: 'Quarto 1', tag: 'Área Interna',
+    id: 'quarto1', label: '05', name: 'Quarto 1', tag: 'Área Interna', faIcon: faBed,
     desc: 'Quarto confortável, climatizado e com colchões livres',
-    fullDesc: 'Quarto espaçoso com  ar-condicionado, cama de casal, cama de solteiro e colchões livres. Pensado para proporcionar o descanso que você merece depois de um dia inesquecível.',
+    fullDesc: 'Quarto espaçoso com ar-condicionado, cama de casal, cama de solteiro e colchões livres. Pensado para proporcionar o descanso que você merece depois de um dia inesquecível.',
     highlights: ['1 cama de casal', '1 cama de solteiro', '2 colchões livres', 'Cabideiro'],
     specs: [
       { faIcon: faBed,       label: 'Camas',       value: '1 cama de casal' },
@@ -183,53 +192,53 @@ const ROOMS = [
     bg: quartoImg1, images: [quartoImg1, quartoImg2],
   },
   {
-    id: 'suite', label: '06', name: 'Suíte', tag: 'Área Interna',
+    id: 'suite', label: '06', name: 'Suíte', tag: 'Área Interna', faIcon: faStar,
     desc: 'Suíte completa com banheiro privativo — o máximo em conforto.',
     fullDesc: 'A suíte é o ambiente mais completo da casa. Com banheiro privativo, cama de casal, ar-condicionado e toda a privacidade que o casal precisa para uma estadia perfeita.',
     highlights: ['2 camas de casal', 'Banheiro privativo', 'Ar-condicionado', 'Espaço amplo'],
     specs: [
-      { faIcon: faBed,       label: 'Camas',       value: '2 camas de casal' },
-      { faIcon: faShower,    label: 'Banheiro',    value: 'Privativo incluso' },
+      { faIcon: faBed,       label: 'Camas',        value: '2 camas de casal' },
+      { faIcon: faShower,    label: 'Banheiro',     value: 'Privativo incluso' },
       { faIcon: faSnowflake, label: 'Climatização', value: 'Ar-condicionado' },
     ],
     bg: suiteImg, images: [suiteImg, suiteImg2],
   },
   {
-    id: 'gramado', label: '07', name: 'Gramado Sintético', tag: 'Quintal',
+    id: 'gramado', label: '07', name: 'Gramado Sintético', tag: 'Quintal', faIcon: faSeedling,
     desc: 'Amplo quintal com grama sintética — verde o ano todo.',
     fullDesc: 'O quintal é um dos destaques da Casa Amarela. Com grama sintética de altíssima qualidade, sempre verde e sem lama, é o espaço perfeito para crianças brincarem e adultos relaxarem.',
     highlights: ['Sempre verde', 'Sem lama ou manutenção', 'Ideal para crianças', 'Espaço amplo'],
     specs: [
-      { faIcon: faSeedling, label: 'Grama',         value: 'Sintética premium' },
+      { faIcon: faSeedling, label: 'Grama',          value: 'Sintética premium' },
       { faIcon: faUsers,    label: 'Indicado para', value: 'Famílias com crianças' },
     ],
     bg: quintalImg, images: [quintalImg, quintalImg2],
   },
   {
-    id: 'garagem', label: '08', name: 'Garagem', tag: 'Externo',
+    id: 'garagem', label: '08', name: 'Garagem', tag: 'Externo', faIcon: faCar,
     desc: 'Garagem externa espaçosa para múltiplos veículos.',
     fullDesc: 'Garagem externa com espaço generoso para acomodar múltiplos veículos com segurança. Ideal para grupos que chegam de carro de outras cidades.',
-    highlights: ['Múltiplos veículos', 'Espaço amplo', 'Segura',],
+    highlights: ['Múltiplos veículos', 'Espaço amplo', 'Segura'],
     specs: [
-      { faIcon: faCar,  label: 'Capacidade', value: ' 4 carros' },
+      { faIcon: faCar,  label: 'Capacidade', value: '4 carros' },
       { faIcon: faLock, label: 'Segurança',  value: 'Portão com acesso' },
     ],
     bg: garagemImg, images: [garagemImg],
   },
   {
-    id: 'gourmet', label: '09', name: 'Área Gourmet', tag: 'Lazer',
+    id: 'gourmet', label: '09', name: 'Área Gourmet', tag: 'Lazer', faIcon: faUtensils,
     desc: 'Área gourmet completa com bancada em granito e cooktop, e claro, nossa grande churrasqueira.',
     fullDesc: 'A área gourmet é o coração das festas na Casa Amarela. Bancada em granito, cooktop embutido, pia e banheiro de apoio — tudo para o churrasco perfeito.',
     highlights: ['Cooktop embutido', 'Churrasqueira', 'Pia inclusa', 'Banheiro de apoio'],
     specs: [
-      { faIcon: faFire,   label: 'Lazer',  value: 'Churrasqueira' },
+      { faIcon: faFire,   label: 'Lazer',    value: 'Churrasqueira' },
       { faIcon: faGem,    label: 'Bancada',  value: 'Granito completo' },
       { faIcon: faShower, label: 'Banheiro', value: 'Apoio externo' },
-        ],
+    ],
     bg: gourmetImg, images: [gourmetImg, gourmetImg2],
   },
   {
-    id: 'banheiro3', label: '10', name: 'Banheiro Externo', tag: 'Lazer',
+    id: 'banheiro3', label: '10', name: 'Banheiro Externo', tag: 'Lazer', faIcon: faShower,
     desc: 'Banheiro de apoio externo, prático para uso direto da piscina.',
     fullDesc: 'Banheiro externo para uso direto da piscina, mantendo a casa sempre limpa e organizada.',
     highlights: ['Acesso direto da piscina', 'Prático', 'Mantém a casa limpa'],
@@ -240,7 +249,7 @@ const ROOMS = [
     bg: banheiro3Img, images: [banheiro3Img],
   },
   {
-    id: 'piscina', label: '11', name: 'Piscina', tag: 'Lazer',
+    id: 'piscina', label: '11', name: 'Piscina', tag: 'Lazer', faIcon: faPersonSwimming,
     desc: 'Piscina privativa com deck de madeira e espreguiçadeiras.',
     fullDesc: 'A estrela da Casa Amarela. Piscina privativa de água cristalina, rodeada por deck de madeira e espreguiçadeiras — o paraíso particular que você tanto merecia.',
     highlights: ['Piscina exclusiva', 'Deck de madeira', 'Espreguiçadeiras', 'Chuveiro externo'],
@@ -346,7 +355,9 @@ export default function Rooms() {
               key={tag}
               className={`rooms__tab${ROOMS[active]?.tag === tag ? ' rooms__tab--active' : ''}`}
               onClick={() => scrollTo(firstIdx)}
-            >{tag}</button>
+            >
+              {tag}
+            </button>
           )
         })}
       </div>
@@ -368,9 +379,11 @@ export default function Rooms() {
             >
               <div className="room-card__photo" style={getBg(room.bg)}>
                 <div className="room-card__photo-overlay" />
-                <span className="room-card__photo-icon">
-                  <FontAwesomeIcon icon={room.faIcon} />
-                </span>
+                {room.faIcon && (
+                  <span className="room-card__photo-icon">
+                    <FontAwesomeIcon icon={room.faIcon} />
+                  </span>
+                )}
                 <div className="room-card__photo-badge">{room.tag}</div>
                 <div className="room-card__number">{room.label}</div>
                 <div className="room-card__expand-hint">
@@ -396,10 +409,14 @@ export default function Rooms() {
                 <FontAwesomeIcon icon={faWater} />
               </span>
               <p>Ficou com vontade?</p>
-              <a href="https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!" className="rooms__end-btn" target="_blank" 
-      rel="noopener noreferrer" 
-      className="rooms__end-btn">
-              Reservar agora
+              
+              <a 
+                href="https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!"
+                className="rooms__end-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Reservar agora
               </a>
             </div>
           </div>
