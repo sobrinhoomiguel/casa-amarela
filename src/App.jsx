@@ -6,7 +6,6 @@ import Gallery from './components/Gallery'
 import Testimonials from './components/Testimonials'
 import Location from './components/Location'
 import BookingCTA from './components/BookingCTA'
-import './App.css'
 
 export default function App() {
   return (
@@ -24,6 +23,7 @@ export default function App() {
       </main>
 
       <footer>
+        {/* ── BOTÃO FLUTUANTE DO WHATSAPP (Corrigido) ── */}
         <a 
           href="https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!"
           target="_blank"
