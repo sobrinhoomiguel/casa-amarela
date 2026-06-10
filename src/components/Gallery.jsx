@@ -1,13 +1,19 @@
 import { useRef, useEffect, useState } from 'react'
 import './Gallery.css'
+import praiaImg2   from '../assets/praia_img2.jpeg'
+import praiaImg    from '../assets/praia_img.jpeg'
+import quintalImg  from '../assets/quintal_img.png'
+import salaImg2    from '../assets/sala_img2.png'
+import quintalImg2 from '../assets/quintal_img2.png'
+import piscinaImg2 from '../assets/piscina_img2.png'
 
 const GALLERY_ITEMS = [
-  { label: 'Praia ao entardecer',  span: 'tall',   src: '/src/assets/praia_img2.jpeg',   bg: 'linear-gradient(135deg, #F5C200 0%, #D4A800 100%)' },
-  { label: 'Praia de dia',         span: 'tall',   src: '/src/assets/praia_img.jpeg',    bg: 'linear-gradient(135deg, #3BBFDB 0%, #1A6FA3 100%)' },
-  { label: 'Área externa',         span: 'normal', src: 'src/assets/quintal_img.png',    bg: 'linear-gradient(135deg, #8B5E3C 0%, #4a2f1a 100%)' },
-  { label: 'Sala de estar',        span: 'normal', src: 'src/assets/sala_img2.png',      bg: 'linear-gradient(135deg, #3CAE4A 0%, #1f6a2b 100%)' },
-  { label: 'Espreguiçadeiras',     span: 'wide',   src: '/src/assets/quintal_img2.png',  bg: 'linear-gradient(135deg, #60C4D8 0%, #3BBFDB 100%)' },
-  { label: 'Deck da Piscina',      span: 'normal', src: 'src/assets/piscina_img2.png',   bg: 'linear-gradient(135deg, #E8D9B5 0%, #c4b48a 100%)' },
+  { label: 'Praia ao entardecer', span: 'tall',   src: praiaImg2,   bg: 'linear-gradient(135deg, #F5C200 0%, #D4A800 100%)' },
+  { label: 'Praia de dia',        span: 'tall',   src: praiaImg,    bg: 'linear-gradient(135deg, #3BBFDB 0%, #1A6FA3 100%)' },
+  { label: 'Área externa',        span: 'normal', src: quintalImg,  bg: 'linear-gradient(135deg, #8B5E3C 0%, #4a2f1a 100%)' },
+  { label: 'Sala de estar',       span: 'normal', src: salaImg2,    bg: 'linear-gradient(135deg, #3CAE4A 0%, #1f6a2b 100%)' },
+  { label: 'Espreguiçadeiras',    span: 'wide',   src: quintalImg2, bg: 'linear-gradient(135deg, #60C4D8 0%, #3BBFDB 100%)' },
+  { label: 'Deck da Piscina',     span: 'normal', src: piscinaImg2, bg: 'linear-gradient(135deg, #E8D9B5 0%, #c4b48a 100%)' },
 ]
 
 export default function Gallery() {
@@ -25,10 +31,9 @@ export default function Gallery() {
     return () => observer.disconnect()
   }, [])
 
-  // Funções de controle do Lightbox atualizadas para evitar stale state
   const openLightbox  = (item, idx) => { setLightbox(item); setLightboxIdx(idx) }
   const closeLightbox = () => { setLightbox(null); setLightboxIdx(null) }
-  
+
   const navLightbox = (dir) => {
     setLightboxIdx((prevIdx) => {
       if (prevIdx === null) return prevIdx
@@ -40,14 +45,14 @@ export default function Gallery() {
 
   useEffect(() => {
     const handleKey = (e) => {
-      if (lightboxIdx === null) return // Lightbox fechado, não faz nada
+      if (lightboxIdx === null) return
       if (e.key === 'Escape')     closeLightbox()
       if (e.key === 'ArrowRight') navLightbox(1)
       if (e.key === 'ArrowLeft')  navLightbox(-1)
     }
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
-  }, [lightboxIdx]) // Dependência limpa focada apenas no índice ativo
+  }, [lightboxIdx])
 
   return (
     <section className="gallery" id="galeria" ref={sectionRef}>
@@ -114,12 +119,8 @@ export default function Gallery() {
                 </span>
                 <svg
                   className="gallery__item-zoom"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
+                  width="18" height="18" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" strokeWidth="2"
                   aria-hidden="true"
                 >
                   <circle cx="11" cy="11" r="8" />
@@ -130,9 +131,10 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* ── CTA (Tags <a> corrigidas aqui) ── */}
+        {/* ── CTA ── */}
         <div className={`gallery__cta ${visible ? 'gallery__cta--visible' : ''}`}>
-          <a 
+          
+          <a
             href="https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!"
             target="_blank"
             rel="noopener noreferrer"
@@ -144,7 +146,7 @@ export default function Gallery() {
             Chamar no WhatsApp
           </a>
           
-          <a 
+          <a
             href="https://www.instagram.com/cs.amarela/"
             target="_blank"
             rel="noopener noreferrer"

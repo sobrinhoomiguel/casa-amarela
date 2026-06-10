@@ -7,32 +7,16 @@ import {
   faFish,
 } from '@fortawesome/free-solid-svg-icons'
 import './Hero.css'
+import piscinaImg    from '../assets/piscina_img.png'
+import areaExImg     from '../assets/area_ex.jpeg'
+import varandaImg    from '../assets/varanda_img.png'
+import piscinaImg3   from '../assets/piscina_img3.jpeg'
 
 const SLIDES = [
-  {
-    src: '/src/assets/piscina_img.png',
-    gradient: 'linear-gradient(135deg, #0d2b1f 0%, #1a4a35 50%, #0a1f2e 100%)',
-    accent: '#3BBFDB',
-    label: 'Piscina Privativa',
-  },
-  {
-    src: '/src/assets/area_ex.jpeg',
-    gradient: 'linear-gradient(135deg, #2b1a00 0%, #4a3500 50%, #1f1000 100%)',
-    accent: '#F5C200',
-    label: 'Área Gourmet',
-  },
-  {
-    src: '/src/assets/varanda_img.png',
-    gradient: 'linear-gradient(135deg, #0a1f2e 0%, #1a3a50 50%, #0d2b1f 100%)',
-    accent: '#3CAE4A',
-    label: 'Fachada da Casa',
-  },
-  {
-    src: '/src/assets/piscina_img3.jpeg',
-    gradient: 'linear-gradient(135deg, #0a1f2e 0%, #1a3a50 50%, #0d2b1f 100%)',
-    accent: '#3CAE4A',
-    label: 'Área Externa',
-  },
+  { src: piscinaImg,   label: 'Piscina Privativa' },
+  { src: areaExImg,    label: 'Área Gourmet'      },
+  { src: varandaImg,   label: 'Fachada da Casa'   },
+  { src: piscinaImg3,  label: 'Área Externa'      },
 ]
 
 const PILLS = [
@@ -93,17 +77,13 @@ export default function Hero() {
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     >
-      {/* ── SLIDESHOW DE FUNDO ── */}
       <div className="hero__slides" aria-hidden="true">
         {SLIDES.map((slide, i) => (
           <div
             key={i}
             className={`hero__slide ${i === activeSlide ? 'hero__slide--active' : ''}`}
           >
-            {slide.src
-              ? <img src={slide.src} alt="" className="hero__slide-img" />
-              : <div className="hero__slide-gradient" style={{ background: slide.gradient }} />
-            }
+            <img src={slide.src} alt="" className="hero__slide-img" />
           </div>
         ))}
       </div>
@@ -111,7 +91,6 @@ export default function Hero() {
       <div className="hero__vignette" aria-hidden="true" />
       <div className="hero__grain" aria-hidden="true" />
 
-      {/* ── CONTEÚDO ── */}
       <div className={`hero__content ${loaded ? 'hero__content--loaded' : ''}`}>
 
         <div className="hero__eyebrow">
@@ -179,7 +158,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── INDICADORES + LABEL DA FOTO ── */}
       <div className="hero__controls" aria-label="Slides da galeria">
         <span className="hero__slide-label">{SLIDES[activeSlide].label}</span>
         <div className="hero__dots" role="tablist">
@@ -196,7 +174,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── SCROLL CUE ── */}
       <div className="hero__scroll-cue" aria-hidden="true">
         <div className="hero__scroll-mouse">
           <div className="hero__scroll-dot" />

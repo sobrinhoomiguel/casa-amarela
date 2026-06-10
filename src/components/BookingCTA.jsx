@@ -1,12 +1,16 @@
 import { useRef, useEffect, useState } from 'react'
 import './BookingCTA.css'
-import casaLogo from '../assets/casa_logo.png'
+import casaLogo   from '../assets/casa_logo.png'
+import bugreImg   from '../assets/bugre_img.png'
+import praiaImg4  from '../assets/praia_img4.png'
+import lagoaImg   from '../assets/lagoa_img.png'
+import praiaImg5  from '../assets/praia_img5.png'
 
 const SLIDES = [
-  { src: '/src/assets/bugre_img.png',   label: 'Pôr do Sol', position: 'center 80%' },
-  { src: '/src/assets/praia_img4.png',  label: 'Praia de Figueira',   position: 'center 90%' },
-  { src: '/src/assets/lagoa_img.png',   label: 'Pôr do Sol na Lagoa',    position: 'center 40%' },
-  { src: '/src/assets/praia_img5.png',  label: 'Praia de Figueira',        position: 'center center' },
+  { src: bugreImg,  label: 'Pôr do Sol',          position: 'center 80%'    },
+  { src: praiaImg4, label: 'Praia de Figueira',    position: 'center 90%'    },
+  { src: lagoaImg,  label: 'Pôr do Sol na Lagoa',  position: 'center 40%'    },
+  { src: praiaImg5, label: 'Praia de Figueira',    position: 'center center' },
 ]
 
 export default function BookingCTA() {
@@ -46,13 +50,13 @@ export default function BookingCTA() {
               key={i}
               className={`cta__slide${i === activeSlide ? ' cta__slide--active' : ''}`}
             >
-            <img
-              src={slide.src}
-              alt=""
-              className="cta__slide-img"
-              style={{ objectPosition: slide.position }}
-            />  
-        </div>
+              <img
+                src={slide.src}
+                alt=""
+                className="cta__slide-img"
+                style={{ objectPosition: slide.position }}
+              />
+            </div>
           ))}
         </div>
 
@@ -80,7 +84,7 @@ export default function BookingCTA() {
           </p>
 
           <div className="cta__buttons">
-            {/* CORRIGIDO: Adicionado o "<a" que faltava no início */}
+            
             <a
               href="https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!"
               target="_blank"
@@ -92,8 +96,7 @@ export default function BookingCTA() {
               </svg>
               Chamar no WhatsApp
             </a>
-
-            {/* CORRIGIDO: Adicionado o "<a" que faltava no início */}
+            
             <a
               href="https://www.instagram.com/cs.amarela/"
               target="_blank"
@@ -142,6 +145,7 @@ export default function BookingCTA() {
             <a href="#sobre">A Casa</a>
             <a href="#comodidades">Comodidades</a>
             <a href="#galeria">Galeria</a>
+            
             <a
               href="https://www.instagram.com/cs.amarela/"
               target="_blank"
