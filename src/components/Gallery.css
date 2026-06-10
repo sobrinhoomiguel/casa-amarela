@@ -287,6 +287,14 @@
   white-space: nowrap;
 }
 
+.cta__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
 /* ============================================================
    DESKTOP ≥ 768px
    ============================================================ */

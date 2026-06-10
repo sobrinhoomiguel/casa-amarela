@@ -53,7 +53,7 @@ const ROUTES = [
     steps: [
       { faIcon: faCar,          text: 'Pegue a RJ-102 sentido norte' },
       { faIcon: faArrowRight,   text: 'Siga pela via principal do bairro' },
-      { faIcon: faShoppingBag,  text: 'Mercadinhos, padaria e comércio local' },
+      { faIcon: faShoppingBag,  text: 'Mercados, praça, comércios variados, lagoa e quadras' },
     ],
   },
   {
@@ -65,7 +65,7 @@ const ROUTES = [
     steps: [
       { faIcon: faCar,        text: 'Pegue a RJ-102 sentido sul' },
       { faIcon: faArrowRight, text: 'Siga até o centro de Arraial do Cabo' },
-      { faIcon: faUtensils,   text: 'Restaurantes, mercados e comércio local' },
+      { faIcon: faUtensils,   text: 'Restaurantes, mercados, comércio local e praias famosas' },
     ],
   },
 ]
@@ -73,7 +73,7 @@ const ROUTES = [
 const HIGHLIGHTS = [
   { faIcon: faDroplet,       title: 'Mar Cristalino',  desc: 'Arraial do Cabo tem as águas mais transparentes do RJ' },
   { faIcon: faFish,          title: 'Vida Marinha',    desc: 'Mergulhe com tartarugas e peixes tropicais coloridos' },
-  { faIcon: faSun,           title: 'Pôr do Sol',      desc: 'Pôr do sol inesquecível visto da Praia Grande' },
+  { faIcon: faSun,           title: 'Pôr do Sol',      desc: 'Pôr do sol inesquecível visto da praia, lagoa ou do nosso quintal' },
   { faIcon: faShrimp,        title: 'Gastronomia',     desc: 'Frutos do mar frescos em restaurantes à beira-mar' },
 ]
 

@@ -1,29 +1,32 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faChevronLeft, faChevronRight, faUpRightAndDownLeftFromCenter,
+  faDoorOpen, faTv, faUtensils, faShower, faBed, faStar,
+  faSeedling, faCar, faFire, faWater, faSnowflake,
+  faRulerCombined, faWind, faGem, faLock, faUsers,
+  faPersonSwimming,
+} from '@fortawesome/free-solid-svg-icons'
 import './Rooms.css'
-import piscinaImg1 from '../assets/piscina_img.png'
-import piscinaImg2 from '../assets/piscina_img2.png'
-import quartoImg1 from '../assets/quarto_img.png'
-import quartoImg2 from '../assets/quarto_img2.png'
-import salaImg1 from '../assets/sala_img.png'
-import salaImg2 from '../assets/sala_img2.png'
-import cozinhaImg from '../assets/cozinha_img.png'
-import cozinhaImg2 from '../assets/cozinha_img2.png'
-import banheiroImg from '../assets/banheiro_img.png'
-import banheiroImg2 from '../assets/banheiro_img2.png'
-import suiteImg from '../assets/suite_img.png'
-import suiteImg2 from '../assets/suite_img2.png'
-import quintalImg from '../assets/quintal_img.png'
-import quintalImg2 from '../assets/quintal_img2.png'
-import gourmetImg from '../assets/gourmet_img.png'
-import gourmetImg2 from '../assets/gourmet_img2.png'
-import banheiro3Img from '../assets/banheiro3_img.png'
-import varandaImg from '../assets/varanda_img.png'
-import garagemImg from '../assets/garagem_img.png'
-
-
-
-
-
+import piscinaImg1   from '../assets/piscina_img.png'
+import piscinaImg2   from '../assets/piscina_img2.png'
+import quartoImg1    from '../assets/quarto_img.png'
+import quartoImg2    from '../assets/quarto_img2.png'
+import salaImg1      from '../assets/sala_img.png'
+import salaImg2      from '../assets/sala_img2.png'
+import cozinhaImg    from '../assets/cozinha_img.png'
+import cozinhaImg2   from '../assets/cozinha_img2.png'
+import banheiroImg   from '../assets/banheiro_img.png'
+import banheiroImg2  from '../assets/banheiro_img2.png'
+import suiteImg      from '../assets/suite_img.png'
+import suiteImg2     from '../assets/suite_img2.png'
+import quintalImg    from '../assets/quintal_img.png'
+import quintalImg2   from '../assets/quintal_img2.png'
+import gourmetImg    from '../assets/gourmet_img.png'
+import gourmetImg2   from '../assets/gourmet_img2.png'
+import banheiro3Img  from '../assets/banheiro3_img.png'
+import varandaImg    from '../assets/varanda_img.png'
+import garagemImg    from '../assets/garagem_img.png'
 
 const getBg = (img, position = 'center') =>
   !img || img.startsWith('linear') || img.startsWith('#')
@@ -52,18 +55,18 @@ function RoomModal({ room, onClose }) {
 
         <div className="room-modal__gallery">
           <div className="room-modal__main-img" style={getBg(images[activeImg])}>
-            <span className="room-modal__main-icon">{room.icon}</span>
+            <span className="room-modal__main-icon">
+              <FontAwesomeIcon icon={room.faIcon} />
+            </span>
             {images.length > 1 && (
               <div className="room-modal__img-nav">
-                <button
-                  onClick={() => setActiveImg(p => Math.max(0, p - 1))}
-                  disabled={activeImg === 0}
-                >←</button>
+                <button onClick={() => setActiveImg(p => Math.max(0, p - 1))} disabled={activeImg === 0}>
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
                 <span>{activeImg + 1} / {images.length}</span>
-                <button
-                  onClick={() => setActiveImg(p => Math.min(images.length - 1, p + 1))}
-                  disabled={activeImg === images.length - 1}
-                >→</button>
+                <button onClick={() => setActiveImg(p => Math.min(images.length - 1, p + 1))} disabled={activeImg === images.length - 1}>
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
               </div>
             )}
           </div>
@@ -76,7 +79,9 @@ function RoomModal({ room, onClose }) {
                   style={getBg(img)}
                   onClick={() => setActiveImg(i)}
                 >
-                  <span className="room-modal__thumb-icon">{room.icon}</span>
+                  <span className="room-modal__thumb-icon">
+                    <FontAwesomeIcon icon={room.faIcon} />
+                  </span>
                 </div>
               ))}
             </div>
@@ -92,7 +97,9 @@ function RoomModal({ room, onClose }) {
             <div className="room-modal__specs">
               {room.specs.map(spec => (
                 <div key={spec.label} className="room-modal__spec">
-                  <span className="room-modal__spec-icon">{spec.icon}</span>
+                  <span className="room-modal__spec-icon">
+                    <FontAwesomeIcon icon={spec.faIcon} />
+                  </span>
                   <div>
                     <div className="room-modal__spec-label">{spec.label}</div>
                     <div className="room-modal__spec-value">{spec.value}</div>
@@ -105,10 +112,7 @@ function RoomModal({ room, onClose }) {
           <div className="room-modal__highlights-title">Destaques</div>
           <ul className="room-modal__highlights">
             {room.highlights.map(h => (
-              <li key={h}>
-                <span className="room-modal__dot" />
-                {h}
-              </li>
+              <li key={h}><span className="room-modal__dot" />{h}</li>
             ))}
           </ul>
 
@@ -128,29 +132,21 @@ const ROOMS = [
     fullDesc: 'A varanda é o cartão de visitas da Casa Amarela. Espaçosa, ventilada e cheia de charme, é o lugar ideal para uma conversa ao entardecer ou para receber os amigos com classe.',
     highlights: ['Espaço amplo', 'Bem ventilada', 'Área de convivência'],
     specs: [
-      { icon: '📐', label: 'Ambiente', value: 'Externo coberto' },
-      { icon: '💨', label: 'Ventilação', value: 'Natural' },
+      { faIcon: faRulerCombined, label: 'Ambiente',   value: 'Externo coberto' },
+      { faIcon: faWind,          label: 'Ventilação', value: 'Natural' },
     ],
-    bg: varandaImg,
-    images: [
-      varandaImg,
-    ],
+    bg: varandaImg, images: [varandaImg],
   },
   {
     id: 'sala', label: '02', name: 'Sala com TV', tag: 'Área Interna',
     desc: 'Sala climatizada com TV para os momentos de descanso e entretenimento.',
-    fullDesc: 'Sala de estar ampla e climatizada, perfeita para relaxar depois de um longo dia de praia. Com TV de tela grande e sofá confortável para toda a família.',
-    highlights: ['Smart TV', 'Ar-condicionado', 'Sofá confortável'],
+    fullDesc: 'Sala de estar ampla e confortável, perfeita para relaxar depois de um longo dia de praia. Com TV de tela grande e sofá confortável para toda a família.',
+    highlights: ['Smart TV', 'Sofá confortável'],
     specs: [
-      { icon: '📺', label: 'TV', value: 'Smart TV' },
-      { icon: '❄️', label: 'Climatização', value: 'Ar-condicionado' },
-      { icon: '🛋️', label: 'Mobília', value: 'Sofá completo' },
+      { faIcon: faTv,        label: 'TV',           value: 'Smart TV' },
+      { faIcon: faGem,       label: 'Mobília',      value: 'Sofá completo' },
     ],
-    bg: salaImg1,
-    images: [
-      salaImg1,
-      salaImg2,
-    ],
+    bg: salaImg1, images: [salaImg1, salaImg2],
   },
   {
     id: 'cozinha', label: '03', name: 'Cozinha Americana', tag: 'Área Interna',
@@ -158,63 +154,45 @@ const ROOMS = [
     fullDesc: 'Cozinha americana integrada à sala, com bancada em granito e todos os utensílios necessários para preparar desde um café da manhã especial até um jantar completo.',
     highlights: ['Totalmente equipada', 'Bancada em granito', 'Integrada à sala'],
     specs: [
-      { icon: '🍳', label: 'Fogão', value: 'Cooktop embutido' },
-      { icon: '🧊', label: 'Geladeira', value: 'Inclusa' },
-      { icon: '🪨', label: 'Bancada', value: 'Granito' },
+      { faIcon: faFire,     label: 'Fogão',    value: 'Fogão potente' },
+      { faIcon: faSnowflake, label: 'Geladeira', value: 'Inclusa' },
+      { faIcon: faGem,      label: 'Bancada',   value: 'Granito' },
     ],
-    bg: cozinhaImg,
-    images: [
-      cozinhaImg,
-      cozinhaImg2,
-    ],
+    bg: cozinhaImg, images: [cozinhaImg, cozinhaImg2],
   },
   {
     id: 'banheiro', label: '04', name: 'Banheiro', tag: 'Área Interna',
     desc: 'Banheiro completo e bem acabado com chuveiro quente.',
     fullDesc: 'Banheiro social completo e bem acabado, com chuveiro quente, boa pressão e todo o conforto necessário para sua estadia.',
-    highlights: ['Chuveiro quente', 'Boa pressão', 'Bem acabado'],
+    highlights: ['Chuveiro quente', 'Boa pressão'],
     specs: [
-      { icon: '🚿', label: 'Chuveiro', value: 'Água quente' },
-      { icon: '🪥', label: 'Tipo', value: 'Banheiro social' },
+      { faIcon: faShower, label: 'Chuveiro', value: 'Água quente' },
+      { faIcon: faGem,    label: 'Tipo',     value: 'Banheiro social' },
     ],
-    bg: banheiroImg,
-    images: [
-      banheiroImg,
-      banheiroImg2,
-    ],
+    bg: banheiroImg, images: [banheiroImg, banheiroImg2],
   },
   {
     id: 'quarto1', label: '05', name: 'Quarto 1', tag: 'Área Interna',
-    desc: 'Quarto confortável, climatizado e com boa iluminação natural.',
-    fullDesc: 'Quarto espaçoso com cama de casal, ar-condicionado e iluminação natural. Pensado para proporcionar o descanso que você merece depois de um dia inesquecível.',
-    highlights: ['1 cama de casal', 'Ar-condicionado', 'Iluminação natural', 'Guarda-roupa'],
+    desc: 'Quarto confortável, climatizado e com colchões livres',
+    fullDesc: 'Quarto espaçoso com  ar-condicionado, cama de casal, cama de solteiro e colchões livres. Pensado para proporcionar o descanso que você merece depois de um dia inesquecível.',
+    highlights: ['1 cama de casal', '1 cama de solteiro', '2 colchões livres', 'Cabideiro'],
     specs: [
-      { icon: '🛏', label: 'Camas', value: '1 cama de casal' },
-      { icon: '👥', label: 'Capacidade', value: '2 pessoas' },
-      { icon: '❄️', label: 'Climatização', value: 'Ar-condicionado' },
+      { faIcon: faBed,       label: 'Camas',       value: '1 cama de casal' },
+      { faIcon: faSnowflake, label: 'Climatização', value: 'Ar-condicionado' },
     ],
-    bg: quartoImg1,
-    images: [
-      quartoImg1,
-      quartoImg2,
-    ],
+    bg: quartoImg1, images: [quartoImg1, quartoImg2],
   },
   {
     id: 'suite', label: '06', name: 'Suíte', tag: 'Área Interna',
     desc: 'Suíte completa com banheiro privativo — o máximo em conforto.',
     fullDesc: 'A suíte é o ambiente mais completo da casa. Com banheiro privativo, cama de casal, ar-condicionado e toda a privacidade que o casal precisa para uma estadia perfeita.',
-    highlights: ['1 cama de casal', 'Banheiro privativo', 'Ar-condicionado', 'Guarda-roupa'],
+    highlights: ['2 camas de casal', 'Banheiro privativo', 'Ar-condicionado', 'Espaço amplo'],
     specs: [
-      { icon: '🛏', label: 'Camas', value: '1 cama de casal' },
-      { icon: '🚿', label: 'Banheiro', value: 'Privativo incluso' },
-      { icon: '👥', label: 'Capacidade', value: '2 pessoas' },
-      { icon: '❄️', label: 'Climatização', value: 'Ar-condicionado' },
+      { faIcon: faBed,       label: 'Camas',       value: '2 camas de casal' },
+      { faIcon: faShower,    label: 'Banheiro',    value: 'Privativo incluso' },
+      { faIcon: faSnowflake, label: 'Climatização', value: 'Ar-condicionado' },
     ],
-    bg: suiteImg,
-    images: [
-      suiteImg,
-      suiteImg2,
-    ],
+    bg: suiteImg, images: [suiteImg, suiteImg2],
   },
   {
     id: 'gramado', label: '07', name: 'Gramado Sintético', tag: 'Quintal',
@@ -222,89 +200,69 @@ const ROOMS = [
     fullDesc: 'O quintal é um dos destaques da Casa Amarela. Com grama sintética de altíssima qualidade, sempre verde e sem lama, é o espaço perfeito para crianças brincarem e adultos relaxarem.',
     highlights: ['Sempre verde', 'Sem lama ou manutenção', 'Ideal para crianças', 'Espaço amplo'],
     specs: [
-      { icon: '🌿', label: 'Grama', value: 'Sintética premium' },
-      { icon: '👶', label: 'Indicado para', value: 'Famílias com crianças' },
+      { faIcon: faSeedling, label: 'Grama',         value: 'Sintética premium' },
+      { faIcon: faUsers,    label: 'Indicado para', value: 'Famílias com crianças' },
     ],
-    bg: quintalImg,
-    images: [
-      quintalImg,
-      quintalImg2,
-    ],
+    bg: quintalImg, images: [quintalImg, quintalImg2],
   },
   {
-    id: 'garagem', label: '10', name: 'Garagem', tag: 'Externo',
+    id: 'garagem', label: '08', name: 'Garagem', tag: 'Externo',
     desc: 'Garagem externa espaçosa para múltiplos veículos.',
     fullDesc: 'Garagem externa com espaço generoso para acomodar múltiplos veículos com segurança. Ideal para grupos que chegam de carro de outras cidades.',
-    icon: '🚗',
-    highlights: ['Múltiplos veículos', 'Espaço amplo', 'Segura', 'Coberta'],
+    highlights: ['Múltiplos veículos', 'Espaço amplo', 'Segura',],
     specs: [
-      { icon: '🚗', label: 'Capacidade', value: 'Múltiplos veículos' },
-      { icon: '🔒', label: 'Segurança', value: 'Portão com acesso' },
+      { faIcon: faCar,  label: 'Capacidade', value: ' 4 carros' },
+      { faIcon: faLock, label: 'Segurança',  value: 'Portão com acesso' },
     ],
-    bg: garagemImg,
-    images: [
-      garagemImg,
-    ],
+    bg: garagemImg, images: [garagemImg],
   },
   {
-    id: 'gourmet', label: '11', name: 'Área Gourmet', tag: 'Lazer',
-    desc: 'Área gourmet completa com bancada em granito e cooktop.',
+    id: 'gourmet', label: '09', name: 'Área Gourmet', tag: 'Lazer',
+    desc: 'Área gourmet completa com bancada em granito e cooktop, e claro, nossa grande churrasqueira.',
     fullDesc: 'A área gourmet é o coração das festas na Casa Amarela. Bancada em granito, cooktop embutido, pia e banheiro de apoio — tudo para o churrasco perfeito.',
-    highlights: ['Cooktop embutido', 'Bancada em granito', 'Pia inclusa', 'Banheiro de apoio'],
+    highlights: ['Cooktop embutido', 'Churrasqueira', 'Pia inclusa', 'Banheiro de apoio'],
     specs: [
-      { icon: '🍖', label: 'Cooktop', value: 'Embutido' },
-      { icon: '🪨', label: 'Bancada', value: 'Granito completo' },
-      { icon: '🚿', label: 'Banheiro', value: 'Apoio externo' },
-    ],
-    bg: gourmetImg,
-    images: [
-      gourmetImg,
-      gourmetImg2,
-    ],
+      { faIcon: faFire,   label: 'Lazer',  value: 'Churrasqueira' },
+      { faIcon: faGem,    label: 'Bancada',  value: 'Granito completo' },
+      { faIcon: faShower, label: 'Banheiro', value: 'Apoio externo' },
+        ],
+    bg: gourmetImg, images: [gourmetImg, gourmetImg2],
   },
   {
-    id: 'banheiro3', label: '12', name: 'Banheiro Externo', tag: 'Lazer',
-    desc: 'Área gourmet completa com bancada em granito e cooktop.',
-    fullDesc: 'A área gourmet é o coração das festas na Casa Amarela. Bancada em granito, cooktop embutido, pia e banheiro de apoio — tudo para o churrasco perfeito.',
-    highlights: ['Cooktop embutido', 'Bancada em granito', 'Pia inclusa', 'Banheiro de apoio'],
+    id: 'banheiro3', label: '10', name: 'Banheiro Externo', tag: 'Lazer',
+    desc: 'Banheiro de apoio externo, prático para uso direto da piscina.',
+    fullDesc: 'Banheiro externo para uso direto da piscina, mantendo a casa sempre limpa e organizada.',
+    highlights: ['Acesso direto da piscina', 'Prático', 'Mantém a casa limpa'],
     specs: [
-      { icon: '🍖', label: 'Cooktop', value: 'Embutido' },
-      { icon: '🪨', label: 'Bancada', value: 'Granito completo' },
-      { icon: '🚿', label: 'Banheiro', value: 'Apoio externo' },
+      { faIcon: faShower, label: 'Tipo',   value: 'Banheiro de apoio' },
+      { faIcon: faWater,  label: 'Acesso', value: 'Direto da piscina' },
     ],
-    bg: banheiro3Img,
-    images: [
-      banheiro3Img,
-    ],
+    bg: banheiro3Img, images: [banheiro3Img],
   },
   {
-    id: 'piscina', label: '12', name: 'Piscina', tag: 'Lazer',
+    id: 'piscina', label: '11', name: 'Piscina', tag: 'Lazer',
     desc: 'Piscina privativa com deck de madeira e espreguiçadeiras.',
     fullDesc: 'A estrela da Casa Amarela. Piscina privativa de água cristalina, rodeada por deck de madeira e espreguiçadeiras — o paraíso particular que você tanto merecia.',
     highlights: ['Piscina exclusiva', 'Deck de madeira', 'Espreguiçadeiras', 'Chuveiro externo'],
     specs: [
-      { icon: '🏊', label: 'Piscina', value: 'Privativa exclusiva' },
-      { icon: '🪵', label: 'Deck', value: 'Madeira com revestimento' },
-      { icon: '🚿', label: 'Chuveiro', value: 'Externo incluso' },
+      { faIcon: faPersonSwimming, label: 'Piscina',  value: 'Privativa exclusiva' },
+      { faIcon: faGem,            label: 'Deck',     value: 'Madeira com revestimento' },
+      { faIcon: faShower,         label: 'Chuveiro', value: 'Externo incluso' },
     ],
-    bg: piscinaImg1,
-    images: [
-      piscinaImg1,
-      piscinaImg2,
-    ],
+    bg: piscinaImg1, images: [piscinaImg1, piscinaImg2],
   },
 ]
 
 export default function Rooms() {
-  const trackRef = useRef(null)
-  const sectionRef = useRef(null)
-  const [active, setActive] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
-  const [dragMoved, setDragMoved] = useState(false)
-  const [startX, setStartX] = useState(0)
-  const [scrollLeft, setScrollLeft] = useState(0)
+  const trackRef    = useRef(null)
+  const sectionRef  = useRef(null)
+  const [active, setActive]               = useState(0)
+  const [isDragging, setIsDragging]       = useState(false)
+  const [dragMoved, setDragMoved]         = useState(false)
+  const [startX, setStartX]               = useState(0)
+  const [scrollLeft, setScrollLeft]       = useState(0)
   const [headerVisible, setHeaderVisible] = useState(false)
-  const [modalRoom, setModalRoom] = useState(null)
+  const [modalRoom, setModalRoom]         = useState(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -336,15 +294,13 @@ export default function Rooms() {
   }, [])
 
   const onMouseDown = (e) => {
-    setIsDragging(true)
-    setDragMoved(false)
+    setIsDragging(true); setDragMoved(false)
     setStartX(e.pageX - trackRef.current.offsetLeft)
     setScrollLeft(trackRef.current.scrollLeft)
   }
   const onMouseMove = (e) => {
     if (!isDragging) return
-    e.preventDefault()
-    setDragMoved(true)
+    e.preventDefault(); setDragMoved(true)
     const x = e.pageX - trackRef.current.offsetLeft
     trackRef.current.scrollLeft = scrollLeft - (x - startX)
   }
@@ -368,20 +324,16 @@ export default function Rooms() {
             Arraste para explorar — clique para ver detalhes.
           </p>
           <div className="rooms__nav-arrows">
-            <button
-              className="rooms__arrow"
-              onClick={() => scrollTo(Math.max(0, active - 1))}
-              disabled={active === 0}
-            >←</button>
+            <button className="rooms__arrow" onClick={() => scrollTo(Math.max(0, active - 1))} disabled={active === 0}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
             <span className="rooms__counter">
               <strong>{String(active + 1).padStart(2, '0')}</strong>
               <span>/{String(ROOMS.length).padStart(2, '0')}</span>
             </span>
-            <button
-              className="rooms__arrow"
-              onClick={() => scrollTo(Math.min(ROOMS.length - 1, active + 1))}
-              disabled={active === ROOMS.length - 1}
-            >→</button>
+            <button className="rooms__arrow" onClick={() => scrollTo(Math.min(ROOMS.length - 1, active + 1))} disabled={active === ROOMS.length - 1}>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
           </div>
         </div>
       </div>
@@ -416,13 +368,13 @@ export default function Rooms() {
             >
               <div className="room-card__photo" style={getBg(room.bg)}>
                 <div className="room-card__photo-overlay" />
-                <span className="room-card__photo-icon">{room.icon}</span>
+                <span className="room-card__photo-icon">
+                  <FontAwesomeIcon icon={room.faIcon} />
+                </span>
                 <div className="room-card__photo-badge">{room.tag}</div>
                 <div className="room-card__number">{room.label}</div>
                 <div className="room-card__expand-hint">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-                  </svg>
+                  <FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} />
                   Ver detalhes
                 </div>
               </div>
@@ -437,9 +389,12 @@ export default function Rooms() {
               </div>
             </div>
           ))}
+
           <div className="rooms__end-spacer">
             <div className="rooms__end-cta">
-              <span>🌊</span>
+              <span className="rooms__end-cta__icon">
+                <FontAwesomeIcon icon={faWater} />
+              </span>
               <p>Ficou com vontade?</p>
               <a href="#reservar" className="rooms__end-btn">Reservar agora</a>
             </div>
