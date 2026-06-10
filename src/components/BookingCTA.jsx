@@ -1,23 +1,27 @@
 import { useRef, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import './BookingCTA.css'
-import casaLogo   from '../assets/casa_logo.png'
-import bugreImg   from '../assets/bugre_img.png'
-import praiaImg4  from '../assets/praia_img4.png'
-import lagoaImg   from '../assets/lagoa_img.png'
-import praiaImg5  from '../assets/praia_img5.png'
+import casaLogo  from '../assets/casa_logo.png'
+import bugreImg  from '../assets/bugre_img.png'
+import praiaImg4 from '../assets/praia_img4.png'
+import lagoaImg  from '../assets/lagoa_img.png'
+import praiaImg5 from '../assets/praia_img5.png'
 
 const SLIDES = [
-  { src: bugreImg,  label: 'Pôr do Sol',          position: 'center 80%'    },
-  { src: praiaImg4, label: 'Praia de Figueira',    position: 'center 90%'    },
-  { src: lagoaImg,  label: 'Pôr do Sol na Lagoa',  position: 'center 40%'    },
-  { src: praiaImg5, label: 'Praia de Figueira',    position: 'center center' },
+  { src: bugreImg,  label: 'Pôr do Sol',         position: 'center 80%'    },
+  { src: praiaImg4, label: 'Praia de Figueira',   position: 'center 90%'    },
+  { src: lagoaImg,  label: 'Pôr do Sol na Lagoa', position: 'center 40%'    },
+  { src: praiaImg5, label: 'Praia de Figueira',   position: 'center center' },
 ]
+
+const WPP_URL =
+  'https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!'
 
 export default function BookingCTA() {
   const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible]         = useState(false)
   const [activeSlide, setActiveSlide] = useState(0)
-  const intervalRef = useRef(null)
+  const intervalRef                   = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -61,7 +65,7 @@ export default function BookingCTA() {
         </div>
 
         <div className="cta__vignette" aria-hidden="true" />
-        <div className="cta__grain" aria-hidden="true" />
+        <div className="cta__grain"   aria-hidden="true" />
 
         <div className="cta__bg" aria-hidden="true">
           <div className="cta__blob cta__blob--1" />
@@ -84,9 +88,8 @@ export default function BookingCTA() {
           </p>
 
           <div className="cta__buttons">
-            
             <a
-              href="https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!"
+              href={WPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="cta__btn cta__btn--whatsapp"
@@ -96,7 +99,7 @@ export default function BookingCTA() {
               </svg>
               Chamar no WhatsApp
             </a>
-            
+
             <a
               href="https://www.instagram.com/cs.amarela/"
               target="_blank"
@@ -132,8 +135,10 @@ export default function BookingCTA() {
 
       </section>
 
+      {/* ── FOOTER ──────────────────────────────────────────────────── */}
       <footer className="footer">
         <div className="footer__inner">
+
           <div className="footer__brand">
             <div className="footer__logo-row">
               <img src={casaLogo} alt="Casa Amarela" className="footer__logo-img" />
@@ -141,11 +146,12 @@ export default function BookingCTA() {
             </div>
             <p>Figueira · Arraial do Cabo · RJ</p>
           </div>
+
           <div className="footer__links">
             <a href="#sobre">A Casa</a>
             <a href="#comodidades">Comodidades</a>
             <a href="#galeria">Galeria</a>
-            
+            <Link to="/roteiro">Pontos Turísticos</Link>
             <a
               href="https://www.instagram.com/cs.amarela/"
               target="_blank"
@@ -154,9 +160,11 @@ export default function BookingCTA() {
               @cs.amarela
             </a>
           </div>
+
           <div className="footer__bottom">
             <span>Casa Amarela · 2026</span>
           </div>
+
         </div>
       </footer>
     </>

@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Rooms from './components/Rooms'
@@ -6,26 +7,38 @@ import Gallery from './components/Gallery'
 import Testimonials from './components/Testimonials'
 import Location from './components/Location'
 import BookingCTA from './components/BookingCTA'
+import Roteiro from './components/Roteiro'
+
+const WPP_FLOAT =
+  'https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!'
+
+function PaginaInicial() {
+  return (
+    <main>
+      <Hero />
+      <Rooms />
+      <Features />
+      <Gallery />
+      <Testimonials />
+      <Location />
+      <BookingCTA />
+    </main>
+  )
+}
 
 export default function App() {
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
-      
-      <main>
-        <Hero />
-        <Rooms />
-        <Features />
-        <Gallery />
-        <Testimonials />
-        <Location />
-        <BookingCTA />
-      </main>
+
+      <Routes>
+        <Route path="/"        element={<PaginaInicial />} />
+        <Route path="/roteiro" element={<Roteiro />} />
+      </Routes>
 
       <footer>
-        {/* ── BOTÃO FLUTUANTE DO WHATSAPP (Corrigido) ── */}
-        <a 
-          href="https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!"
+        <a
+          href={WPP_FLOAT}
           target="_blank"
           rel="noopener noreferrer"
           className="wpp-float"
@@ -36,6 +49,6 @@ export default function App() {
           </svg>
         </a>
       </footer>
-    </>
+    </BrowserRouter>
   )
 }

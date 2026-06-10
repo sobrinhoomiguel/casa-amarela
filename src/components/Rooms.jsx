@@ -228,7 +228,7 @@ const ROOMS = [
   {
     id: 'gourmet', label: '09', name: 'Área Gourmet', tag: 'Lazer', faIcon: faUtensils,
     desc: 'Área gourmet completa com bancada em granito e cooktop, e claro, nossa grande churrasqueira.',
-    fullDesc: 'A área gourmet é o coração das festas na Casa Amarela. Bancada em granito, cooktop embutido, pia e banheiro de apoio — tudo para o churrasco perfeito.',
+    fullDesc: 'A área gourmet é o coração das festas na Casa Amarela. Bancada em pedra, cooktop embutido, pia e banheiro de apoio — tudo para o churrasco perfeito.',
     highlights: ['Cooktop embutido', 'Churrasqueira', 'Pia inclusa', 'Banheiro de apoio'],
     specs: [
       { faIcon: faFire,   label: 'Lazer',    value: 'Churrasqueira' },
