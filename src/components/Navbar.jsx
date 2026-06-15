@@ -34,11 +34,17 @@ export default function Navbar() {
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
-
-      <Link to="/" className="navbar__logo" onClick={close}>
-        <img src={casaLogo} alt="Casa Amarela" className="navbar__logo-img" />
-        <span className="navbar__logo-text">Casa<strong> Amarela</strong></span>
-      </Link>
+<Link
+  to="/"
+  className="navbar__logo"
+  onClick={() => {
+    close()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }}
+>
+  <img src={casaLogo} alt="Casa Amarela" className="navbar__logo-img" />
+  <span className="navbar__logo-text">Casa<strong> Amarela</strong></span>
+</Link>
 
       <ul className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
 
