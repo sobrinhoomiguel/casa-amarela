@@ -1,6 +1,18 @@
 import { useState } from "react";
 
-import imgPraia1 from "../../src/assets/praia_img4.png";
+// ── IMAGENS — troque apenas o nome do arquivo ──────────────────────────
+import imgPraiaFigueira    from "../../src/assets/praia_img4.png";
+import imgPraiaMonteAlto   from "../../src/assets/praia_monte_alto.webp";
+import imgPrainha          from "../../src/assets/prainha_img.jpg";
+import imgPraiaGrande      from "../../src/assets/praia_grande.jpg";
+import imgPraiaForno       from "../../src/assets/praia_do_forno.jpg";
+import imgPontalAtalaia    from "../../src/assets/praia_atalaia.jpg";
+import imgLagoaAraruama    from "../../src/assets/lagoa_figueira.jpg";
+import imgLagoaMonteAlto   from "../../src/assets/lagoa_monte_alto.jpg";
+import imgPontalAlcaira    from "../../src/assets/pontal_alcaira.jpg";
+import imgCentroArraial    from "../../src/assets/centro_arraial.jpg";
+import imgCentroFigueira   from "../../src/assets/centro_figueira.webp";
+import imgCentroCaboFrio   from "../../src/assets/centro_cabo_frio.jpg";
 
 
 /* ─── DADOS ──────────────────────────────────────────────────────────── */
@@ -17,37 +29,57 @@ const SECOES = [
         distancia: "4 min a pé",
         descricao:
           "Apenas 4 minutos a pé de casa, a Praia de Figueira é um refúgio sossegado e raramente cheio, ideal para quem busca privacidade. O grande destaque são suas águas que, em certos períodos, ficam tão claras e cristalinas que lembram o Caribe.",
-        dica: "Se pensar em ir embora cedo, fique: o pôr do sol em Figueira é um espetáculo memorável que fecha o dia no paraíso com chave de ouro.",
+        dica: "Se pensar em ir embora cedo, fique: o pôr do sol em Figueira é um espetáculo memorável que fecha o dia com chave de ouro.",
         destaque: true,
         tag: "Praia",
       },
       {
         id: 2,
-        nome: "Prainha",
-        distancia: "12 min de carro",
+        nome: "Praia de Monte Alto",
+        distancia: "2 min de carro",
         descricao:
-          "Pequena e abraçada por falésias brancas, a Prainha é um dos melhores pontos de snorkel de Arraial. A água é translúcida e cheia de vida marinha — cardumes coloridos aparecem a poucos metros da areia.",
-        dica: "Se pensar em ir embora cedo, estenda a canga: o final de tarde transforma a enseada em um cenário de cinema que vale cada minuto.",
+          "A praia oceânica do próprio bairro da Casa Amarela. Extensa, com areia larga e mar aberto, é bem menos movimentada que as praias centrais de Arraial — ideal para longas caminhadas, pôr do sol sem multidão e aquele contato direto com a natureza da Restinga de Massambaba. Os ventos constantes animam quem curte kite e windsurf.",
+        dica: "Vá ao entardecer: a combinação de dunas, restinga e céu alaranjado rende fotos incríveis e praticamente sem gente.",
         destaque: false,
         tag: "Praia",
       },
       {
         id: 3,
-        nome: "Praia Grande",
-        distancia: "10 min de carro",
+        nome: "Prainha",
+        distancia: "15 min de carro",
         descricao:
-          "A praia mais longa e animada de Arraial, com quilômetros de areia branca, quiosques e ondas suaves para stand-up paddle. Estrutura completa sem abrir mão da beleza natural.",
-        dica: "Perfeita para o pôr do sol com uma água de coco na mão. A areia clara brilha de um jeito único.",
+          "Pequena enseada abraçada entre os morros do Mirante e do Forno, a Prainha é uma das primeiras maravilhas que se vê ao chegar em Arraial do Cabo. Suas águas são calmas, coloridas e ótimas para banho. O canto esquerdo da praia costuma ser bem mais tranquilo — e é por lá também que começa o acesso à Graçainha, famosa pelo snorkel com tartarugas marinhas.",
+        dica: "Evite o canto direito nos fins de semana, fica bem movimentado. O canto esquerdo é quase uma praia à parte, quieta e com aquela vista clássica de Arraial.",
         destaque: false,
         tag: "Praia",
       },
       {
         id: 4,
+        nome: "Praia Grande",
+        distancia: "10 min de carro",
+        descricao:
+          "A praia mais longa de Arraial, com quilômetros de areia branca de formação dunar e ondas suaves para stand-up paddle. Estrutura completa de quiosques sem abrir mão da beleza natural — ótima para quem quer um dia de praia com tudo à mão.",
+        dica: "Perfeita para o pôr do sol com uma água de coco na mão. A areia clara brilha de um jeito único no fim da tarde.",
+        destaque: false,
+        tag: "Praia",
+      },
+      {
+        id: 5,
         nome: "Praia do Forno",
         distancia: "15 min de carro + trilha",
         descricao:
-          "Considerada uma das praias mais bonitas do Brasil. Água em tons de esmeralda, pedras que formam piscinas naturais e um isolamento que faz tudo parecer intocado. Vale cada passo da trilha.",
+          "Considerada uma das praias mais bonitas do Brasil. Água em tons de esmeralda, pedras que formam piscinas naturais e um isolamento que faz tudo parecer intocado. Vale cada passo da trilha — e cada segundo que você ficar lá.",
         dica: "Chegue antes das 9h. Leve água, protetor e comida — não há estrutura na praia.",
+        destaque: true,
+        tag: "Praia",
+      },
+      {
+        id: 6,
+        nome: "Pontal do Atalaia",
+        distancia: "18 min de carro",
+        descricao:
+          "Um dos cartões-postais mais fotografados do Brasil. A descida pela famosa escadaria de madeira com 250 degraus revela, a cada passo, uma vista deslumbrante do oceano até chegar às Prainhas — duas faixas de areia branca com águas tão cristalinas que dá para ver os pés mesmo submerso. Na maré baixa, as duas praias se fundem numa só.",
+        dica: "Chegue cedo: de sexta a domingo após as 9h a areia já fica lotada. Na semana é outro mundo — tranquilo e ainda mais bonito.",
         destaque: true,
         tag: "Praia",
       },
@@ -60,23 +92,33 @@ const SECOES = [
     bg: "#1A1410",
     pontos: [
       {
-        id: 5,
-        nome: "Lagoa de Araruama",
+        id: 7,
+        nome: "Lagoa de Figueira",
         distancia: "10 min de carro",
         descricao:
-          "A maior laguna hipersalina do mundo — a água é quase duas vezes mais salgada que o mar e por isso nunca forma ondas. Vento constante, horizonte infinito e o melhor cenário para windsurf e kite do litoral.",
-        dica: "As margens do lado de Arraial são menos movimentadas. Vale explorar para achar um trecho tranquilo.",
+          "A maior laguna hipersalina do mundo — a água é quase duas vezes mais salgada que o mar e por isso nunca forma ondas. Vento constante, horizonte infinito e o melhor cenário para windsurf e kite do litoral fluminense.",
+        dica: "As margens do lado de Arraial são menos movimentadas. Vale explorar para achar um trecho tranquilo longe das escolinhas de kite.",
         destaque: true,
         tag: "Lagoa",
       },
       {
-        id: 6,
+        id: 8,
         nome: "Lagoa de Monte Alto",
         distancia: "3 min a pé",
         descricao:
-          "A lagoa que dá nome ao bairro da Casa Amarela. Calma, cercada de mata e a poucos passos de casa — perfeita para esfriar as pernas depois de um dia de praia. Crianças adoram a água rasa e a tranquilidade.",
+          "Calma, cercada de mata e a poucos passos de casa — perfeita para esfriar as pernas depois de um dia de praia. Crianças adoram a água rasa e a tranquilidade do lugar.",
         dica: "Dá para ir a pé, sem precisar de carro. É literalmente ali na esquina.",
         destaque: false,
+        tag: "Lagoa",
+      },
+      {
+        id: 9,
+        nome: "Pontal do Alcaíra (Arubinha)",
+        distancia: "20 min de carro + acesso de terra",
+        descricao:
+          "Também chamada de Arubinha ou Caminho de Moisés, a Ponta da Alcaíra é um banco de areia branca que avança por mais de 700 metros dentro da Lagoa de Araruama, com água de ambos os lados — a esquerda mais funda e azul, a direita rasa e cheia de conchas. Um cenário que lembra as Maldivas, escondido entre os bairros de Figueira e Monte Alto.",
+        dica: "O acesso é por estrada de terra — de carro comum dá, mas com cuidado. A melhor pedida é o passeio de buggy saindo de Arraial, que já inclui o trajeto e outras paradas.",
+        destaque: true,
         tag: "Lagoa",
       },
     ],
@@ -88,22 +130,33 @@ const SECOES = [
     bg: "#f5f1e8",
     pontos: [
       {
-        id: 7,
+        id: 10,
         nome: "Centro de Arraial do Cabo",
-        distancia: "8 min de carro",
+        distancia: "12 min de carro",
         descricao:
-          "O coração histórico de Arraial: feiras de artesanato, restaurantes de frutos do mar e a Igreja Nossa Senhora dos Remédios. O mirante com vista para o Canal de Itajuru vale a parada — especialmente ao entardecer.",
-        dica: "Desça até o trapiche para ver os barcos de pesca chegando no fim da tarde.",
+          "O coração histórico de Arraial: feiras de artesanato, restaurantes de frutos do mar frescos e a Igreja Nossa Senhora dos Remédios. O mirante com vista para a Praia dos Anjos vale a parada — especialmente ao entardecer, quando a luz dourada toma conta da baía.",
+        dica: "Desça até o trapiche para ver os barcos de pesca chegando no fim da tarde. Ambiente genuíno de cidade pesqueira, sem nada de artificioso.",
         destaque: false,
         tag: "Passeio",
       },
       {
-        id: 8,
+        id: 11,
+        nome: "Centro de Figueira",
+        distancia: "8 min de carro",
+        descricao:
+          "O distrito de Figueira tem uma vida local bem tranquila, com mercadinho, padaria, pizzaria e pescadaria — tudo o que você precisa para abastecer a casa sem precisar ir até o centro de Arraial. Fica às margens da lagoa, com clima de comunidade pequena e autêntica.",
+        dica: "Ótimo para comprar peixes frescos direto do pescador pela manhã. Bem mais barato e gostoso do que qualquer restaurante turístico.",
+        destaque: false,
+        tag: "Passeio",
+      },
+
+      {
+        id: 12,
         nome: "Centro de Cabo Frio",
         distancia: "20 min de carro",
         descricao:
-          "A cidade vizinha tem canal, a Fortaleza de São Mateus do século XVII, calçadão beira-canal e uma vida noturna bem mais agitada. Vale o passeio para jantar bem e conhecer o mercado de moda que tornou Cabo Frio famosa.",
-        dica: "Prefira ir durante a semana para evitar o trânsito intenso nos finais de semana.",
+          "A cidade vizinha tem canal, a Fortaleza de São Mateus do século XVII, calçadão beira-canal e uma vida noturna bem mais agitada. Vale o passeio para jantar bem e conhecer o famoso mercado de moda que tornou Cabo Frio referência na região.",
+        dica: "Prefira ir durante a semana para evitar o trânsito intenso dos fins de semana. O calçadão à noite tem boa energia.",
         destaque: false,
         tag: "Passeio",
       },
@@ -114,7 +167,6 @@ const SECOES = [
 /* ─── ONDA SVG ───────────────────────────────────────────────────────── */
 function Onda({ de, para }) {
   return (
-    // marginBottom: -1 elimina a linha de corte visível entre onda e seção
     <div style={{ display: "block", lineHeight: 0, background: de, marginBottom: -1 }}>
       <svg
         viewBox="0 0 1440 80"
@@ -140,8 +192,8 @@ const IconPin = () => (
 /* ─── PALETA ─────────────────────────────────────────────────────────── */
 const C = {
   escuro:      "#1A1410",
-  cardBg:      "#211d16",           // dark sections
-  cardBgLight: "rgba(255,255,255,0.72)", // light sections — integrado ao #f5f1e8
+  cardBg:      "#211d16",
+  cardBgLight: "rgba(255,255,255,0.72)",
   amarelo:     "#F5C200",
   titulo:      "#F0EBE0",
   tituloLight: "#1a1410",
@@ -159,22 +211,29 @@ const BADGE = {
   Passeio: { cor: "#c9a94a", bg: "rgba(201,169,74,0.12)" },
 };
 
-const FOTO_FIGUEIRA = imgPraia1;
-
-const FOTO_OUTRA = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80";
-
-const getFoto = (ponto) => {
-  if (ponto.nome === "Praia de Figueira") return FOTO_FIGUEIRA;
-  return FOTO_OUTRA;
+const FOTOS = {
+  "Praia de Figueira":          imgPraiaFigueira,
+  "Praia de Monte Alto":        imgPraiaMonteAlto,
+  "Prainha":                    imgPrainha,
+  "Praia Grande":               imgPraiaGrande,
+  "Praia do Forno":             imgPraiaForno,
+  "Pontal do Atalaia":          imgPontalAtalaia,
+  "Lagoa de Figueira":          imgLagoaAraruama,
+  "Lagoa de Monte Alto":        imgLagoaMonteAlto,
+  "Pontal do Alcaíra (Arubinha)": imgPontalAlcaira,
+  "Centro de Arraial do Cabo":  imgCentroArraial,
+  "Centro de Figueira":         imgCentroFigueira,
+  "Centro de Cabo Frio":        imgCentroCaboFrio,
 };
 
+const getFoto = (ponto) => FOTOS[ponto.nome];
 
 
 /* ─── CARD (desktop) ─────────────────────────────────────────────────── */
 function Card({ ponto, invertido, light }) {
   const [hov, setHov] = useState(false);
-  const badge  = BADGE[ponto.tag] ?? { cor: C.amarelo, bg: "rgba(245,194,0,0.10)" };
-  const cardBg = light ? C.cardBgLight : C.cardBg;
+  const badge   = BADGE[ponto.tag] ?? { cor: C.amarelo, bg: "rgba(245,194,0,0.10)" };
+  const cardBg  = light ? C.cardBgLight : C.cardBg;
   const tituloC = light ? C.tituloLight : C.titulo;
   const corpoC  = light ? C.corpoLight  : C.corpo;
   const dicaC   = light ? C.dicaLight   : C.dica;
@@ -191,7 +250,6 @@ function Card({ ponto, invertido, light }) {
         borderRadius: "1.5rem",
         overflow: "hidden",
         background: cardBg,
-        // borda quase invisível — profundidade vem da sombra
         border: `1px solid ${
           hov
             ? (light ? "rgba(245,194,0,0.22)" : "rgba(245,194,0,0.14)")
@@ -222,7 +280,6 @@ function Card({ ponto, invertido, light }) {
         )}
         <img src={getFoto(ponto)} alt={ponto.nome}
           style={{
-
             width: "100%", height: "100%", objectFit: "cover", display: "block",
             transform: hov ? "scale(1.045)" : "scale(1)",
             transition: "transform 0.7s ease",
@@ -306,7 +363,6 @@ function CardMobile({ ponto, light }) {
         )}
         <img src={getFoto(ponto)} alt={ponto.nome}
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}/>
-
       </div>
 
       <div style={{ padding: "1.2rem 1.35rem", display: "flex", flexDirection: "column", gap: "0.65rem" }}>
