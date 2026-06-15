@@ -27,7 +27,7 @@ const SECOES = [
         distancia: "12 min de carro",
         descricao:
           "Pequena e abraçada por falésias brancas, a Prainha é um dos melhores pontos de snorkel de Arraial. A água é translúcida e cheia de vida marinha — cardumes coloridos aparecem a poucos metros da areia.",
-        dica: "Leve equipamento de snorkel. Você vai querer ficar horas dentro d'água.",
+        dica: "Se pensar em ir embora cedo, estenda a canga: o final de tarde transforma a enseada em um cenário de cinema que vale cada minuto.",
         destaque: false,
         tag: "Praia",
       },
