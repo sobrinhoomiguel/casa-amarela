@@ -7,7 +7,7 @@ import Gallery from './components/Gallery'
 import Testimonials from './components/Testimonials'
 import Location from './components/Location'
 import BookingCTA from './components/BookingCTA'
-import Roteiro from './components/Roteiro'
+import Roteiro from './components/roteiro'
 
 const WPP_FLOAT =
   'https://wa.me/5521982338037?text=Ol%C3%A1!%20Vi%20a%20Casa%20Amarela%20em%20Arraial%20do%20Cabo%20e%20quero%20saber%20sobre%20disponibilidade!'
