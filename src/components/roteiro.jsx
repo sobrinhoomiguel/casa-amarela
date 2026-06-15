@@ -1,277 +1,272 @@
 import { useState } from "react";
 
-/* ─── DATA ──────────────────────────────────────────────────────────── */
-const PONTOS = [
+import imgPraia1 from "../../src/assets/praia_img4.png";
+
+
+/* ─── DADOS ──────────────────────────────────────────────────────────── */
+const SECOES = [
   {
-    id: 1,
-    categoria: "praia",
-    nome: "Praia de Figueira",
-    distancia: "4 min a pé",
-    descricao:
-      "Considerada uma das praias mais bonitas do Brasil, o Forno surpreende com água cristalina em tons de esmeralda e pedras que formam uma piscina natural protegida. O acesso é feito por trilha ou barco — vale cada passo.",
-    dica: "Chegue antes das 9h para pegar uma sombra e água calma.",
-    foto: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80",
-    destaque: true,
+    id: "praias",
+    titulo: "Praias",
+    subtitulo: "Água cristalina a poucos minutos",
+    bg: "#f5f1e8",
+    pontos: [
+      {
+        id: 1,
+        nome: "Praia de Figueira",
+        distancia: "4 min a pé",
+        descricao:
+          "Apenas 4 minutos a pé de casa, a Praia de Figueira é um refúgio sossegado e raramente cheio, ideal para quem busca privacidade. O grande destaque são suas águas que, em certos períodos, ficam tão claras e cristalinas que lembram o Caribe.",
+        dica: "Se pensar em ir embora cedo, fique: o pôr do sol em Figueira é um espetáculo memorável que fecha o dia no paraíso com chave de ouro.",
+        destaque: true,
+        tag: "Praia",
+      },
+      {
+        id: 2,
+        nome: "Prainha",
+        distancia: "12 min de carro",
+        descricao:
+          "Pequena e abraçada por falésias brancas, a Prainha é um dos melhores pontos de snorkel de Arraial. A água é translúcida e cheia de vida marinha — cardumes coloridos aparecem a poucos metros da areia.",
+        dica: "Leve equipamento de snorkel. Você vai querer ficar horas dentro d'água.",
+        destaque: false,
+        tag: "Praia",
+      },
+      {
+        id: 3,
+        nome: "Praia Grande",
+        distancia: "10 min de carro",
+        descricao:
+          "A praia mais longa e animada de Arraial, com quilômetros de areia branca, quiosques e ondas suaves para stand-up paddle. Estrutura completa sem abrir mão da beleza natural.",
+        dica: "Perfeita para o pôr do sol com uma água de coco na mão. A areia clara brilha de um jeito único.",
+        destaque: false,
+        tag: "Praia",
+      },
+      {
+        id: 4,
+        nome: "Praia do Forno",
+        distancia: "15 min de carro + trilha",
+        descricao:
+          "Considerada uma das praias mais bonitas do Brasil. Água em tons de esmeralda, pedras que formam piscinas naturais e um isolamento que faz tudo parecer intocado. Vale cada passo da trilha.",
+        dica: "Chegue antes das 9h. Leve água, protetor e comida — não há estrutura na praia.",
+        destaque: true,
+        tag: "Praia",
+      },
+    ],
   },
   {
-    id: 2,
-    categoria: "praia",
-    nome: "Prainha",
-    distancia: "12 min de carro",
-    descricao:
-      "Pequena e resguardada, as Prainhas ficam entre falésias e oferecem um dos melhores pontos de mergulho da região. A água é tão transparente que você vê o fundo mesmo de longe.",
-    dica: "Leve equipamento de snorkel — a vida marinha é excepcional.",
-    foto: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=900&q=80",
-    destaque: false,
+    id: "lagoas",
+    titulo: "Lagoas",
+    subtitulo: "Calma e paisagem sem fim",
+    bg: "#1A1410",
+    pontos: [
+      {
+        id: 5,
+        nome: "Lagoa de Araruama",
+        distancia: "10 min de carro",
+        descricao:
+          "A maior laguna hipersalina do mundo — a água é quase duas vezes mais salgada que o mar e por isso nunca forma ondas. Vento constante, horizonte infinito e o melhor cenário para windsurf e kite do litoral.",
+        dica: "As margens do lado de Arraial são menos movimentadas. Vale explorar para achar um trecho tranquilo.",
+        destaque: true,
+        tag: "Lagoa",
+      },
+      {
+        id: 6,
+        nome: "Lagoa de Monte Alto",
+        distancia: "3 min a pé",
+        descricao:
+          "A lagoa que dá nome ao bairro da Casa Amarela. Calma, cercada de mata e a poucos passos de casa — perfeita para esfriar as pernas depois de um dia de praia. Crianças adoram a água rasa e a tranquilidade.",
+        dica: "Dá para ir a pé, sem precisar de carro. É literalmente ali na esquina.",
+        destaque: false,
+        tag: "Lagoa",
+      },
+    ],
   },
   {
-    id: 3,
-    categoria: "praia",
-    nome: "Praia Grande",
-    distancia: "5 min de carro",
-    descricao:
-      "A praia mais acessível e animada de Arraial, com quiosques, stand-up paddle e ondas perfeitas para iniciantes. Ideal para quem quer estrutura sem abrir mão da beleza natural.",
-    dica: "Perfeita para o pôr do sol com uma água de coco na mão.",
-    foto: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=900&q=80",
-    destaque: false,
-  },
-  {
-    id: 4,
-    categoria: "lagoa",
-    nome: "Lagoa de Figueira",
-    distancia: "10 min de carro",
-    descricao:
-      "A maior laguna hipersalina do mundo — a água é quase duas vezes mais salgada que o mar e por isso nunca forma ondas. Ideal para descansar, fazer windsurf e contemplar o horizonte sem fim.",
-    dica: "As margens do lado de Arraial são menos movimentadas. Vale explorar.",
-    foto: "https://images.unsplash.com/photo-1566024146169-1b2a985b2c8b?w=900&q=80",
-    destaque: true,
-  },
-  {
-    id: 5,
-    categoria: "lagoa",
-    nome: "Lagoa de Monte Alto",
-    distancia: "3 min a pé",
-    descricao:
-      "A lagoa que dá nome ao bairro da Casa Amarela. Calma, cercada de verde e a poucos passos de casa — perfeita para o fim da tarde após um dia de praia. Crianças adoram a rasa e a tranquilidade.",
-    dica: "Você não precisa nem de carro. Dá pra ir caminhando direto da casa.",
-    foto: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&q=80",
-    destaque: false,
-  },
-  {
-    id: 6,
-    categoria: "centro",
-    nome: "Centro de Figueira",
-    distancia: "15 min de carro",
-    descricao:
-      "Ruas de paralelepípedo, igrejas coloniais e o famoso mirante com vista para o Canal de Itajuru. Uma tarde passeando pelo centro revela a história de um dos povoados mais antigos do litoral fluminense.",
-    dica: "Visite a Igreja Nossa Senhora dos Remédios e desça até o trapiche para ver os barcos de pesca.",
-    foto: "https://images.unsplash.com/photo-1518684079-3c830dcef090?w=900&q=80",
-    destaque: false,
-  },
-  {
-    id: 7,
-    categoria: "centro",
-    nome: "Centro de Arraial do Cabo",
-    distancia: "14 min de carro",
-    descricao:
-      "Um dos cartões postais de Arraial, o farol fica no topo de uma falésia com vista panorâmica para as praias e o oceano aberto. O caminho até lá já é um espetáculo.",
-    dica: "Vá no final da tarde para ver a iluminação dourada nas falésias.",
-    foto: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&q=80",
-    destaque: true,
-  },
-  {
-    id: 8,
-    categoria: "centro",
-    nome: "Centro de Cabo Frio",
-    distancia: "15 min de carro (saída do pier)",
-    descricao:
-      "O passeio clássico de Arraial leva você às praias inacessíveis por terra, com paradas para mergulho e snorkel. As escunas saem cedo e costumam lotar — reserva com antecedência.",
-    dica: "Prefira os passeios que saem às 8h. A luz da manhã nas pedras do Forno é de tirar o fôlego.",
-    foto: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=80",
-    destaque: false,
+    id: "centro",
+    titulo: "Centro & Passeios",
+    subtitulo: "História, cultura e gastronomia",
+    bg: "#f5f1e8",
+    pontos: [
+      {
+        id: 7,
+        nome: "Centro de Arraial do Cabo",
+        distancia: "8 min de carro",
+        descricao:
+          "O coração histórico de Arraial: feiras de artesanato, restaurantes de frutos do mar e a Igreja Nossa Senhora dos Remédios. O mirante com vista para o Canal de Itajuru vale a parada — especialmente ao entardecer.",
+        dica: "Desça até o trapiche para ver os barcos de pesca chegando no fim da tarde.",
+        destaque: false,
+        tag: "Passeio",
+      },
+      {
+        id: 8,
+        nome: "Centro de Cabo Frio",
+        distancia: "20 min de carro",
+        descricao:
+          "A cidade vizinha tem canal, a Fortaleza de São Mateus do século XVII, calçadão beira-canal e uma vida noturna bem mais agitada. Vale o passeio para jantar bem e conhecer o mercado de moda que tornou Cabo Frio famosa.",
+        dica: "Prefira ir durante a semana para evitar o trânsito intenso nos finais de semana.",
+        destaque: false,
+        tag: "Passeio",
+      },
+    ],
   },
 ];
 
-const FILTROS = [
-  { key: "todos", label: "Todos" },
-  { key: "praia", label: "Praias" },
-  { key: "lagoa", label: "Lagoas" },
-  { key: "centro", label: "Centro & Passeios" },
-];
+/* ─── ONDA SVG ───────────────────────────────────────────────────────── */
+function Onda({ de, para }) {
+  return (
+    // marginBottom: -1 elimina a linha de corte visível entre onda e seção
+    <div style={{ display: "block", lineHeight: 0, background: de, marginBottom: -1 }}>
+      <svg
+        viewBox="0 0 1440 80"
+        preserveAspectRatio="none"
+        style={{ display: "block", width: "100%", height: 80 }}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M0,0 C480,80 960,0 1440,60 L1440,80 L0,80 Z" fill={para} />
+      </svg>
+    </div>
+  );
+}
 
-/* ─── ICONES INLINE ─────────────────────────────────────────────────── */
+/* ─── ÍCONE ──────────────────────────────────────────────────────────── */
 const IconPin = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
     <circle cx="12" cy="10" r="3"/>
   </svg>
 );
 
-const IconLamp = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9 18h6M10 22h4M12 2a7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.2L15 17H9l-.5-1.8A7 7 0 0 1 5 9a7 7 0 0 1 7-7z"/>
-  </svg>
-);
-
-/* ─── BADGE CATEGORIA ────────────────────────────────────────────────── */
-const BADGE_STYLE = {
-  praia:  { bg: "rgba(59,191,219,0.15)", color: "#3BBFDB", label: "Praia" },
-  lagoa:  { bg: "rgba(29,158,117,0.15)", color: "#1D9E75", label: "Lagoa" },
-  centro: { bg: "rgba(245,194,0,0.15)",  color: "#C49B00", label: "Passeio" },
+/* ─── PALETA ─────────────────────────────────────────────────────────── */
+const C = {
+  escuro:      "#1A1410",
+  cardBg:      "#211d16",           // dark sections
+  cardBgLight: "rgba(255,255,255,0.72)", // light sections — integrado ao #f5f1e8
+  amarelo:     "#F5C200",
+  titulo:      "#F0EBE0",
+  tituloLight: "#1a1410",
+  corpo:       "#7a7060",
+  corpoLight:  "#5a5040",
+  dica:        "#5c5448",
+  dicaLight:   "#9a8f80",
+  muted:       "#4a4338",
+  mutedLight:  "#b0a898",
 };
 
-/* ─── CARD ───────────────────────────────────────────────────────────── */
-function Card({ ponto, invertido }) {
-  const badge = BADGE_STYLE[ponto.categoria];
+const BADGE = {
+  Praia:   { cor: "#5eb8cc", bg: "rgba(94,184,204,0.12)" },
+  Lagoa:   { cor: "#56b892", bg: "rgba(86,184,146,0.12)" },
+  Passeio: { cor: "#c9a94a", bg: "rgba(201,169,74,0.12)" },
+};
+
+const FOTO_FIGUEIRA = imgPraia1;
+
+const FOTO_OUTRA = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80";
+
+const getFoto = (ponto) => {
+  if (ponto.nome === "Praia de Figueira") return FOTO_FIGUEIRA;
+  return FOTO_OUTRA;
+};
+
+
+
+/* ─── CARD (desktop) ─────────────────────────────────────────────────── */
+function Card({ ponto, invertido, light }) {
+  const [hov, setHov] = useState(false);
+  const badge  = BADGE[ponto.tag] ?? { cor: C.amarelo, bg: "rgba(245,194,0,0.10)" };
+  const cardBg = light ? C.cardBgLight : C.cardBg;
+  const tituloC = light ? C.tituloLight : C.titulo;
+  const corpoC  = light ? C.corpoLight  : C.corpo;
+  const dicaC   = light ? C.dicaLight   : C.dica;
+  const mutedC  = light ? C.mutedLight  : C.muted;
 
   return (
     <article
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
       style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
         gridTemplateAreas: invertido ? '"texto foto"' : '"foto texto"',
-        borderRadius: "1.25rem",
+        borderRadius: "1.5rem",
         overflow: "hidden",
-        background: "var(--card-bg)",
-        border: "1px solid var(--card-border)",
-        minHeight: 340,
+        background: cardBg,
+        // borda quase invisível — profundidade vem da sombra
+        border: `1px solid ${
+          hov
+            ? (light ? "rgba(245,194,0,0.22)" : "rgba(245,194,0,0.14)")
+            : (light ? "rgba(26,20,16,0.06)"  : "rgba(255,255,255,0.04)")
+        }`,
+        boxShadow: hov
+          ? (light ? "0 8px 40px rgba(26,20,16,0.09)"  : "0 8px 40px rgba(0,0,0,0.22)")
+          : (light ? "0 2px 16px rgba(26,20,16,0.055)" : "0 2px 16px rgba(0,0,0,0.12)"),
+        transition: "border-color 0.4s ease, box-shadow 0.4s ease",
+        minHeight: 320,
       }}
     >
       {/* FOTO */}
-      <div
-        style={{
-          gridArea: "foto",
-          position: "relative",
-          overflow: "hidden",
-          minHeight: 280,
-        }}
-      >
-        <img
-          src={ponto.foto}
-          alt={ponto.nome}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-            transition: "transform 0.6s ease",
-          }}
-          onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")}
-          onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
-        />
+      <div style={{ gridArea: "foto", position: "relative", overflow: "hidden" }}>
+        <div style={{
+          position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
+          background: invertido
+            ? `linear-gradient(to right, ${cardBg}e0 0%, transparent 42%)`
+            : `linear-gradient(to left,  ${cardBg}e0 0%, transparent 42%)`,
+        }}/>
         {ponto.destaque && (
-          <span
-            style={{
-              position: "absolute",
-              top: 14,
-              left: 14,
-              background: "#F5C200",
-              color: "#1A1410",
-              fontSize: "0.68rem",
-              fontWeight: 700,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              padding: "0.3rem 0.7rem",
-              borderRadius: "2rem",
-            }}
-          >
-            Favorito da casa
-          </span>
+          <span style={{
+            position: "absolute", top: 14, left: 14, zIndex: 2,
+            background: C.amarelo, color: "#1A1410",
+            fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.1em",
+            textTransform: "uppercase", padding: "0.22rem 0.65rem", borderRadius: "2rem",
+          }}>Favorito da casa</span>
         )}
+        <img src={getFoto(ponto)} alt={ponto.nome}
+          style={{
+
+            width: "100%", height: "100%", objectFit: "cover", display: "block",
+            transform: hov ? "scale(1.045)" : "scale(1)",
+            transition: "transform 0.7s ease",
+          }}/>
       </div>
 
       {/* TEXTO */}
-      <div
-        style={{
-          gridArea: "texto",
-          padding: "2.5rem 2rem",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: "1rem",
-        }}
-      >
-        {/* Badge categoria + distância */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
-          <span
-            style={{
-              background: badge.bg,
-              color: badge.color,
-              fontSize: "0.68rem",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              padding: "0.28rem 0.75rem",
-              borderRadius: "2rem",
-            }}
-          >
-            {badge.label}
-          </span>
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.3rem",
-              fontSize: "0.72rem",
-              color: "var(--text-muted)",
-              fontWeight: 500,
-            }}
-          >
-            <IconPin /> {ponto.distancia}
+      <div style={{
+        gridArea: "texto",
+        padding: "2.5rem 2.25rem",
+        display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.9rem",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <span style={{
+            background: badge.bg, color: badge.cor,
+            fontSize: "0.62rem", fontWeight: 600, letterSpacing: "0.1em",
+            textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "2rem",
+          }}>{ponto.tag}</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.22rem",
+            fontSize: "0.67rem", color: mutedC }}>
+            <IconPin/> {ponto.distancia}
           </span>
         </div>
 
-        {/* Nome */}
-        <h2
-          style={{
-            fontFamily: "Georgia, serif",
-            fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
-            fontWeight: 900,
-            lineHeight: 1.1,
-            color: "var(--text-primary)",
-            margin: 0,
-          }}
-        >
+        <h3 style={{
+          fontFamily: "Georgia, serif",
+          fontSize: "clamp(1.2rem, 2vw, 1.65rem)",
+          fontWeight: 900, lineHeight: 1.1, color: tituloC, margin: 0,
+        }}>
           {ponto.nome}
-        </h2>
+        </h3>
 
-        {/* Descrição */}
-        <p
-          style={{
-            fontSize: "0.88rem",
-            lineHeight: 1.7,
-            color: "var(--text-secondary)",
-            margin: 0,
-          }}
-        >
+        <div style={{
+          width: hov ? 42 : 26, height: 1.5,
+          background: C.amarelo, borderRadius: 2, opacity: 0.6,
+          transition: "width 0.4s ease",
+        }}/>
+
+        <p style={{ fontSize: "0.86rem", lineHeight: 1.78, color: corpoC, margin: 0 }}>
           {ponto.descricao}
         </p>
 
-        {/* Dica */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "0.5rem",
-            background: "rgba(245,194,0,0.08)",
-            border: "1px solid rgba(245,194,0,0.2)",
-            borderRadius: "0.75rem",
-            padding: "0.75rem 1rem",
-          }}
-        >
-          <span style={{ color: "#F5C200", flexShrink: 0, marginTop: "1px" }}>
-            <IconLamp />
-          </span>
-          <p
-            style={{
-              fontSize: "0.78rem",
-              lineHeight: 1.55,
-              color: "var(--text-secondary)",
-              margin: 0,
-            }}
-          >
+        <div style={{ borderLeft: `2px solid ${C.amarelo}35`, paddingLeft: "0.85rem" }}>
+          <p style={{ fontSize: "0.77rem", lineHeight: 1.6, color: dicaC, margin: 0, fontStyle: "italic" }}>
             {ponto.dica}
           </p>
         </div>
@@ -280,122 +275,66 @@ function Card({ ponto, invertido }) {
   );
 }
 
-/* ─── CARD MOBILE (stack vertical) ──────────────────────────────────── */
-function CardMobile({ ponto }) {
-  const badge = BADGE_STYLE[ponto.categoria];
+/* ─── CARD MOBILE ────────────────────────────────────────────────────── */
+function CardMobile({ ponto, light }) {
+  const badge   = BADGE[ponto.tag] ?? { cor: C.amarelo, bg: "rgba(245,194,0,0.10)" };
+  const cardBg  = light ? C.cardBgLight : C.cardBg;
+  const tituloC = light ? C.tituloLight : C.titulo;
+  const corpoC  = light ? C.corpoLight  : C.corpo;
+  const dicaC   = light ? C.dicaLight   : C.dica;
+  const mutedC  = light ? C.mutedLight  : C.muted;
 
   return (
-    <article
-      style={{
-        borderRadius: "1.25rem",
-        overflow: "hidden",
-        background: "var(--card-bg)",
-        border: "1px solid var(--card-border)",
-      }}
-    >
+    <article style={{
+      borderRadius: "1.25rem", overflow: "hidden",
+      background: cardBg,
+      border: `1px solid ${light ? "rgba(26,20,16,0.06)" : "rgba(255,255,255,0.04)"}`,
+      boxShadow: light ? "0 2px 16px rgba(26,20,16,0.055)" : "0 2px 16px rgba(0,0,0,0.12)",
+    }}>
       <div style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden" }}>
-        <img
-          src={ponto.foto}
-          alt={ponto.nome}
-          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-        />
+        <div style={{
+          position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
+          background: `linear-gradient(to bottom, transparent 40%, ${C.escuro}bb 100%)`,
+        }}/>
         {ponto.destaque && (
-          <span
-            style={{
-              position: "absolute",
-              top: 12,
-              left: 12,
-              background: "#F5C200",
-              color: "#1A1410",
-              fontSize: "0.65rem",
-              fontWeight: 700,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              padding: "0.28rem 0.65rem",
-              borderRadius: "2rem",
-            }}
-          >
-            Favorito
-          </span>
+          <span style={{
+            position: "absolute", top: 12, left: 12, zIndex: 2,
+            background: C.amarelo, color: C.escuro,
+            fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.1em",
+            textTransform: "uppercase", padding: "0.2rem 0.55rem", borderRadius: "2rem",
+          }}>Favorito</span>
         )}
+        <img src={getFoto(ponto)} alt={ponto.nome}
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}/>
+
       </div>
 
-      <div style={{ padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
-          <span
-            style={{
-              background: badge.bg,
-              color: badge.color,
-              fontSize: "0.65rem",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              padding: "0.25rem 0.65rem",
-              borderRadius: "2rem",
-            }}
-          >
-            {badge.label}
-          </span>
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.28rem",
-              fontSize: "0.7rem",
-              color: "var(--text-muted)",
-              fontWeight: 500,
-            }}
-          >
-            <IconPin /> {ponto.distancia}
+      <div style={{ padding: "1.2rem 1.35rem", display: "flex", flexDirection: "column", gap: "0.65rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
+          <span style={{
+            background: badge.bg, color: badge.cor,
+            fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.1em",
+            textTransform: "uppercase", padding: "0.18rem 0.55rem", borderRadius: "2rem",
+          }}>{ponto.tag}</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem",
+            fontSize: "0.67rem", color: mutedC }}>
+            <IconPin/> {ponto.distancia}
           </span>
         </div>
 
-        <h2
-          style={{
-            fontFamily: "Georgia, serif",
-            fontSize: "1.2rem",
-            fontWeight: 900,
-            lineHeight: 1.1,
-            color: "var(--text-primary)",
-            margin: 0,
-          }}
-        >
+        <h3 style={{
+          fontFamily: "Georgia, serif", fontSize: "1.1rem", fontWeight: 900,
+          color: tituloC, margin: 0, lineHeight: 1.2,
+        }}>
           {ponto.nome}
-        </h2>
+        </h3>
 
-        <p
-          style={{
-            fontSize: "0.85rem",
-            lineHeight: 1.65,
-            color: "var(--text-secondary)",
-            margin: 0,
-          }}
-        >
+        <p style={{ fontSize: "0.82rem", lineHeight: 1.7, color: corpoC, margin: 0 }}>
           {ponto.descricao}
         </p>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "0.45rem",
-            background: "rgba(245,194,0,0.08)",
-            border: "1px solid rgba(245,194,0,0.2)",
-            borderRadius: "0.65rem",
-            padding: "0.65rem 0.85rem",
-          }}
-        >
-          <span style={{ color: "#F5C200", flexShrink: 0, marginTop: "1px" }}>
-            <IconLamp />
-          </span>
-          <p
-            style={{
-              fontSize: "0.76rem",
-              lineHeight: 1.55,
-              color: "var(--text-secondary)",
-              margin: 0,
-            }}
-          >
+        <div style={{ borderLeft: `2px solid ${C.amarelo}35`, paddingLeft: "0.75rem" }}>
+          <p style={{ fontSize: "0.74rem", lineHeight: 1.55, color: dicaC, margin: 0, fontStyle: "italic" }}>
             {ponto.dica}
           </p>
         </div>
@@ -404,318 +343,164 @@ function CardMobile({ ponto }) {
   );
 }
 
-/* ─── PAGE ───────────────────────────────────────────────────────────── */
+/* ─── PÁGINA ─────────────────────────────────────────────────────────── */
 export default function Roteiro() {
-  const [filtro, setFiltro] = useState("todos");
   const [mobile, setMobile] = useState(() => window.innerWidth < 768);
 
-  // detecta resize
   useState(() => {
     const handle = () => setMobile(window.innerWidth < 768);
     window.addEventListener("resize", handle);
     return () => window.removeEventListener("resize", handle);
   });
 
-  const visíveis =
-    filtro === "todos" ? PONTOS : PONTOS.filter(p => p.categoria === filtro);
+  const px = mobile ? "1.25rem" : "3rem";
 
   return (
     <>
       <style>{`
-        :root {
-          --amarelo: #F5C200;
-          --escuro:  #1A1410;
-          --branco:  #FAFAF5;
-          --card-bg:     #ffffff;
-          --card-border: #e8e4da;
-          --text-primary:   #1A1410;
-          --text-secondary: #5a5248;
-          --text-muted:     #9c9488;
-          --page-bg:        #f5f1e8;
-        }
-        @media (prefers-color-scheme: dark) {
-          :root {
-            --card-bg:        #1e1a14;
-            --card-border:    #2e2820;
-            --text-primary:   #FAFAF5;
-            --text-secondary: #b0a898;
-            --text-muted:     #756d62;
-            --page-bg:        #141210;
-          }
-        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--page-bg); }
-
-        .filtro-btn {
-          padding: 0.55rem 1.2rem;
-          border-radius: 2rem;
-          font-size: 0.82rem;
-          font-weight: 600;
-          cursor: pointer;
-          border: 1.5px solid transparent;
-          transition: all 0.22s ease;
-          background: var(--card-bg);
-          color: var(--text-secondary);
-          border-color: var(--card-border);
-          white-space: nowrap;
+        .cards-grid { display: flex; flex-direction: column; gap: 1.75rem; }
+        .card-in {
+          opacity: 0; transform: translateY(24px);
+          animation: entra 0.55s ease forwards;
         }
-        .filtro-btn:hover {
-          border-color: var(--amarelo);
-          color: var(--text-primary);
-        }
-        .filtro-btn--ativo {
-          background: var(--amarelo);
-          color: var(--escuro);
-          border-color: var(--amarelo);
-        }
-        .filtro-btn--ativo:hover {
-          background: var(--amarelo);
-          color: var(--escuro);
-        }
-
-        .cards-lista {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-        }
-
-        .card-animado {
-          opacity: 0;
-          transform: translateY(24px);
-          animation: surgir 0.5s ease forwards;
-        }
-        @keyframes surgir {
-          to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes entra { to { opacity: 1; transform: translateY(0); } }
       `}</style>
 
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "var(--page-bg)",
-          paddingBottom: "5rem",
-        }}
-      >
-        {/* ── HEADER ────────────────────────────────────────────────── */}
-        <div
-          style={{
-            background: "var(--escuro)",
-            padding: mobile ? "3.5rem 1.25rem 2.5rem" : "4rem 3rem 3rem",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          {/* Detalhe decorativo */}
-          <div
-            style={{
-              position: "absolute",
-              top: -60,
-              right: -60,
-              width: 240,
-              height: 240,
-              borderRadius: "50%",
-              background: "rgba(245,194,0,0.06)",
-              pointerEvents: "none",
-            }}
-          />
-
-          <div style={{ maxWidth: 960, margin: "0 auto" }}>
-            {/* Breadcrumb */}
-            <p
-              style={{
-                fontSize: "0.72rem",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(250,250,245,0.35)",
-                marginBottom: "1.25rem",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-              }}
-            >
-              <span>Casa Amarela</span>
-              <span>›</span>
-              <span style={{ color: "#F5C200" }}>Roteiro</span>
-            </p>
-
-            <h1
-              style={{
-                fontFamily: "Georgia, serif",
-                fontSize: mobile ? "clamp(2rem, 8vw, 2.8rem)" : "clamp(2.8rem, 5vw, 4rem)",
-                fontWeight: 900,
-                lineHeight: 1,
-                color: "#FAFAF5",
-                marginBottom: "0.75rem",
-              }}
-            >
-              O que fazer em{" "}
-              <span style={{ color: "#F5C200" }}>Arraial do Cabo</span>
-            </h1>
-
-            <p
-              style={{
-                fontSize: mobile ? "0.88rem" : "1rem",
-                color: "rgba(250,250,245,0.55)",
-                lineHeight: 1.6,
-                maxWidth: 560,
-                marginBottom: "2rem",
-              }}
-            >
-              Curadoria de quem mora aqui e recebe há mais de 6 anos. Praias,
-              lagoas e passeios imperdíveis, todos perto da Casa Amarela.
-            </p>
-
-            {/* Filtros */}
-            <div
-              style={{
-                display: "flex",
-                gap: "0.5rem",
-                flexWrap: "wrap",
-              }}
-            >
-              {FILTROS.map(f => (
-                <button
-                  key={f.key}
-                  className={`filtro-btn${filtro === f.key ? " filtro-btn--ativo" : ""}`}
-                  onClick={() => setFiltro(f.key)}
-                >
-                  {f.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ── CONTADOR ──────────────────────────────────────────────── */}
-        <div
-          style={{
-            maxWidth: 960,
-            margin: "0 auto",
-            padding: mobile ? "1.5rem 1.25rem 0" : "2rem 3rem 0",
-          }}
-        >
-          <p
-            style={{
-              fontSize: "0.75rem",
-              color: "var(--text-muted)",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-            }}
-          >
-            {visíveis.length}{" "}
-            {visíveis.length === 1 ? "local encontrado" : "locais encontrados"}
+      {/* ── HERO ────────────────────────────────────────────────────── */}
+      <div style={{
+        background: "#1A1410",
+        padding: mobile ? "4rem 1.25rem 3.5rem" : "5rem 3rem 4rem",
+        position: "relative", overflow: "hidden",
+      }}>
+        <div style={{
+          position: "absolute", top: -80, right: -80, width: 320, height: 320,
+          borderRadius: "50%", background: "rgba(245,194,0,0.04)", pointerEvents: "none",
+        }}/>
+        <div style={{ maxWidth: 960, margin: "0 auto" }}>
+          <p style={{
+            fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase",
+            color: "rgba(250,250,245,0.28)", marginBottom: "1.5rem",
+            display: "flex", alignItems: "center", gap: "0.5rem",
+          }}>
+            <span>Casa Amarela</span>
+            <span style={{ opacity: 0.4 }}>›</span>
+            <span style={{ color: "#F5C200" }}>Roteiro</span>
+          </p>
+          <h1 style={{
+            fontFamily: "Georgia, serif",
+            fontSize: mobile ? "clamp(2rem, 9vw, 2.8rem)" : "clamp(2.8rem, 5vw, 4.2rem)",
+            fontWeight: 900, lineHeight: 0.95, color: "#FAFAF5", marginBottom: "1.25rem",
+          }}>
+            O que fazer em<br/>
+            <span style={{ color: "#F5C200" }}>Arraial do Cabo</span>
+          </h1>
+          <p style={{
+            fontSize: mobile ? "0.88rem" : "1rem",
+            color: "rgba(250,250,245,0.45)", lineHeight: 1.65, maxWidth: 520,
+          }}>
+            Curadoria de quem mora aqui e recebe há mais de 6 anos.
+            Praias, lagoas e passeios imperdíveis — todos perto da Casa Amarela.
           </p>
         </div>
+      </div>
 
-        {/* ── CARDS ─────────────────────────────────────────────────── */}
-        <div
-          style={{
-            maxWidth: 960,
-            margin: "0 auto",
-            padding: mobile ? "1.25rem 1.25rem 0" : "1.5rem 3rem 0",
-          }}
-        >
-          <div className="cards-lista">
-            {visíveis.map((ponto, idx) =>
-              mobile ? (
-                <div
-                  key={ponto.id}
-                  className="card-animado"
-                  style={{ animationDelay: `${idx * 0.07}s` }}
-                >
-                  <CardMobile ponto={ponto} />
+      {/* ── SEÇÕES ──────────────────────────────────────────────────── */}
+      {SECOES.map((secao, si) => {
+        const bgAnterior = si === 0 ? "#1A1410" : SECOES[si - 1].bg;
+        const claro = secao.bg === "#f5f1e8";
+        const py = mobile ? "3.5rem" : "5rem";
+
+        return (
+          <div key={secao.id}>
+            <Onda de={bgAnterior} para={secao.bg} />
+            <div style={{ background: secao.bg, padding: `${py} ${px}` }}>
+              <div style={{ maxWidth: 960, margin: "0 auto" }}>
+                <div style={{ marginBottom: "2.75rem" }}>
+                  <p style={{
+                    fontSize: "0.68rem", letterSpacing: "0.16em", textTransform: "uppercase",
+                    color: claro ? "#b0a48a" : "rgba(250,250,245,0.28)",
+                    marginBottom: "0.4rem",
+                  }}>
+                    {secao.subtitulo}
+                  </p>
+                  <h2 style={{
+                    fontFamily: "Georgia, serif",
+                    fontSize: mobile ? "clamp(1.5rem, 6vw, 2rem)" : "clamp(1.8rem, 3.5vw, 2.5rem)",
+                    fontWeight: 900, lineHeight: 1.05, margin: 0,
+                    color: claro ? "#1A1410" : "#FAFAF5",
+                  }}>
+                    {secao.titulo}
+                  </h2>
                 </div>
-              ) : (
-                <div
-                  key={ponto.id}
-                  className="card-animado"
-                  style={{ animationDelay: `${idx * 0.07}s` }}
-                >
-                  <Card ponto={ponto} invertido={idx % 2 !== 0} />
+
+                <div className="cards-grid">
+                  {secao.pontos.map((ponto, idx) => (
+                    <div key={ponto.id} className="card-in" style={{ animationDelay: `${idx * 0.07}s` }}>
+                      {mobile
+                        ? <CardMobile ponto={ponto} light={claro} />
+                        : <Card ponto={ponto} invertido={idx % 2 !== 0} light={claro} />
+                      }
+                    </div>
+                  ))}
                 </div>
-              )
-            )}
+              </div>
+            </div>
           </div>
-        </div>
+        );
+      })}
 
-        {/* ── CTA ───────────────────────────────────────────────────── */}
-        <div
-          style={{
-            maxWidth: 960,
-            margin: mobile ? "3rem auto 0" : "4rem auto 0",
-            padding: mobile ? "0 1.25rem" : "0 3rem",
-          }}
-        >
-          <div
+      <Onda de={SECOES[SECOES.length - 1].bg} para="#1A1410" />
+
+      {/* ── CTA FINAL ───────────────────────────────────────────────── */}
+      <div style={{
+        background: "#1A1410",
+        padding: mobile ? "3rem 1.25rem 5rem" : "4rem 3rem 6rem",
+      }}>
+        <div style={{
+          maxWidth: 960, margin: "0 auto",
+          display: "flex", flexDirection: mobile ? "column" : "row",
+          alignItems: mobile ? "flex-start" : "center",
+          justifyContent: "space-between", gap: "2rem",
+        }}>
+          <div>
+            <p style={{
+              fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase",
+              color: "rgba(250,250,245,0.28)", marginBottom: "0.75rem",
+            }}>Pronto para explorar?</p>
+            <h3 style={{
+              fontFamily: "Georgia, serif",
+              fontSize: mobile ? "1.6rem" : "2.2rem",
+              fontWeight: 900, lineHeight: 1.1, color: "#FAFAF5",
+            }}>
+              Reserve a Casa Amarela<br/>
+              <span style={{ color: "#F5C200" }}>e viva tudo isso.</span>
+            </h3>
+          </div>
+          <a
+            href="#reservar"
             style={{
-              background: "var(--escuro)",
-              borderRadius: "1.25rem",
-              padding: mobile ? "2rem 1.5rem" : "2.5rem 3rem",
-              display: "flex",
-              flexDirection: mobile ? "column" : "row",
-              alignItems: mobile ? "flex-start" : "center",
-              justifyContent: "space-between",
-              gap: "1.5rem",
+              display: "inline-flex", alignItems: "center", gap: "0.6rem",
+              background: "#F5C200", color: "#1A1410",
+              padding: "1rem 2rem", borderRadius: "3rem",
+              fontWeight: 700, fontSize: "0.9rem",
+              textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0,
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = "translateY(-3px)";
+              e.currentTarget.style.boxShadow = "0 10px 28px rgba(245,194,0,0.35)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
             }}
           >
-            <div>
-              <p
-                style={{
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "rgba(250,250,245,0.35)",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Pronto para explorar?
-              </p>
-              <h3
-                style={{
-                  fontFamily: "Georgia, serif",
-                  fontSize: mobile ? "1.4rem" : "1.75rem",
-                  fontWeight: 900,
-                  color: "#FAFAF5",
-                  lineHeight: 1.15,
-                }}
-              >
-                Reserve a Casa Amarela <br />
-                <span style={{ color: "#F5C200" }}>e viva tudo isso.</span>
-              </h3>
-            </div>
-            <a
-              href="#reservar"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.55rem",
-                background: "#F5C200",
-                color: "#1A1410",
-                padding: "0.9rem 1.8rem",
-                borderRadius: "3rem",
-                fontWeight: 700,
-                fontSize: "0.88rem",
-                textDecoration: "none",
-                whiteSpace: "nowrap",
-                flexShrink: 0,
-                transition: "transform 0.2s ease, box-shadow 0.2s ease",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow = "0 8px 24px rgba(245,194,0,0.35)";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
-            >
-              Verificar disponibilidade
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2.5">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-          </div>
+            Verificar disponibilidade
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
         </div>
       </div>
     </>
